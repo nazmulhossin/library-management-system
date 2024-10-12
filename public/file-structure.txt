@@ -1,0 +1,55 @@
+/public
+│
+├── /images
+│   ├── /books
+│   │   ├── book1_cover.jpg
+│   │   ├── book2_cover.jpg
+│   │   └── ...
+│   ├── /users
+│   │   ├── user1_profile.jpg
+│   │   ├── user2_profile.jpg
+│   │   └── ...
+│   └── /system
+│       ├── logo.png
+│       └── favicon.ico
+│
+├── /ebooks
+│   ├── book1_ebook.pdf
+│   ├── book2_ebook.epub
+│   └── ...
+│
+├── /academic_resources
+│   ├── /notes
+│   │   ├── note1.pdf
+│   │   ├── note2.docx
+│   │   └── ...
+│   ├── /presentations
+│   │   ├── presentation1.pptx
+│   │   ├── presentation2.pptx
+│   │   └── ...
+│   └── /research_papers
+│       ├── paper1.pdf
+│       ├── paper2.pdf
+│       └── ...
+│
+├── /logs
+│   ├── access.log
+│   ├── error.log
+│   └── system.log
+│
+└── /uploads
+    ├── temp_uploads
+    └── user_uploads
+
+
+public/
+├── css/
+├── js/
+└── assets/
+    ├── images/
+    │   └── logo.png
+    ├── icons/
+    └── uploads/
+        ├── books/
+        ├── ebooks/
+        └── research/

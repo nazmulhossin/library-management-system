@@ -1,0 +1,86 @@
+.form-container {
+    width: 630px;
+
+    form {
+        .group-inputs {
+            display: flex;
+            justify-content: space-between;
+
+            &.first {
+                div:first-child {
+                    width: 50%;
+                }
+    
+                div:last-child {
+                    width: 45%;
+                }
+            }
+
+            &.second {
+                div:first-child {
+                    width: 50%;
+                }
+
+                div:last-child {
+                    width: 45%;
+
+                    div {
+                        display: flex;
+                        align-items: center;
+                        width: 100%;
+                        position: relative;
+
+                        span {
+                            position: absolute;
+                            left: 10px;
+                        }
+
+                        input {
+                            padding-left: 55px;
+                        }
+                    }
+                }
+            }
+            
+            &.third {
+                div:first-child {
+                    width: 47.5%;
+                }
+    
+                div:last-child {
+                    width: 47.5%;
+                }
+            }
+        }
+    
+        .submit-btn {
+            background-color: #16A34A;
+            color: #fff;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+    
+            &:hover {
+                background-color: #1ab854;
+            }
+        }
+    }
+
+    .additional-links {
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 40px 25px;
+        color: #2c3345;
+
+        a {
+            font-weight: 500;
+
+            &:hover {
+                color: #0000ffd5;
+            }
+        }
+    }
+}

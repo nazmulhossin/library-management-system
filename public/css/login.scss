@@ -1,0 +1,27 @@
+.form-container {
+    width: 400px;
+    
+    .header {
+        h2 {
+            font-size: 30px;  
+        }
+        
+        img {
+            height: 42px;
+        }
+    }
+
+    form {
+        label {
+            font-size: 16px;
+        }
+    
+        input {
+            font-size: 15px;
+        }
+    }
+
+    .additional-links {
+        justify-content: center;
+    }
+}

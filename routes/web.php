@@ -6,6 +6,22 @@ Route::get('/', function () {
     return view('pages/home');
 });
 
+Route::get('/login', function () {
+    return view('auth/login');
+}) -> name('login');
+
+Route::get('/student-register', function () {
+    return view('auth/student-register');
+}) -> name('student-register');
+
+Route::get('/teacher-register', function () {
+    return view('auth/teacher-register');
+}) -> name('teacher-register');
+
+Route::get('/registration-pending', function () {
+    return view('auth/registration-pending');
+}) -> name('registration-pending');
+
 
 Route::prefix('admin') -> group(function() {
     Route::get('/dashboard', function () {

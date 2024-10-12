@@ -1,0 +1,63 @@
+.form-container {
+  width: 630px;
+}
+.form-container form .group-inputs {
+  display: flex;
+  justify-content: space-between;
+}
+.form-container form .group-inputs.first div:first-child {
+  width: 50%;
+}
+.form-container form .group-inputs.first div:last-child {
+  width: 45%;
+}
+.form-container form .group-inputs.second div:first-child {
+  width: 50%;
+}
+.form-container form .group-inputs.second div:last-child {
+  width: 45%;
+}
+.form-container form .group-inputs.second div:last-child div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+.form-container form .group-inputs.second div:last-child div span {
+  position: absolute;
+  left: 10px;
+}
+.form-container form .group-inputs.second div:last-child div input {
+  padding-left: 55px;
+}
+.form-container form .group-inputs.third div:first-child {
+  width: 47.5%;
+}
+.form-container form .group-inputs.third div:last-child {
+  width: 47.5%;
+}
+.form-container form .submit-btn {
+  background-color: #16A34A;
+  color: #fff;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+.form-container form .submit-btn:hover {
+  background-color: #1ab854;
+}
+.form-container .additional-links {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 40px 25px;
+  color: #2c3345;
+}
+.form-container .additional-links a {
+  font-weight: 500;
+}
+.form-container .additional-links a:hover {
+  color: rgba(0, 0, 255, 0.8352941176);
+}
