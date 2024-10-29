@@ -16,7 +16,7 @@
 
         <div class="admin-profile">
             <div class="admin-info"><i class="fa-solid fa-user"></i><span>Admin</span></div> 
-            <div class="logout-button"><a href="">Logout</a></div>
+            <div class="logout-button"><a href="{{ route('logout') }}">Logout</a></div>
         </div>
     </header>
     <main>

@@ -106,6 +106,9 @@ body {
 .form-container form .group-inputs.third div:last-child {
   width: 47.5%;
 }
+.form-container form .error-msg {
+  color: red;
+}
 .form-container form .submit-btn {
   background-color: #16A34A;
   color: #fff;

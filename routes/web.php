@@ -1,33 +1,35 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\StudentRegistrationController;
+use App\Http\Controllers\Auth\TeacherRegistrationController;
+use App\Http\Controllers\Auth\LoginController;
 
-Route::get('/', function () {
-    return view('pages/home');
-});
-
-Route::get('/login', function () {
+Route::get('', function () {
     return view('auth/login');
-}) -> name('login');
+})->name('login');
 
-Route::get('/student-register', function () {
-    return view('auth/student-register');
-}) -> name('student-register');
 
-Route::get('/teacher-register', function () {
-    return view('auth/teacher-register');
-}) -> name('teacher-register');
 
-Route::get('/registration-pending', function () {
-    return view('auth/registration-pending');
-}) -> name('registration-pending');
+// Authentication Routes
+Route::view('/register-student', 'auth/register-student')->name('register-student');
+Route::post('/register-student', [StudentRegistrationController::class, 'store']);
+
+Route::view('/register-teacher', 'auth/register-teacher')->name('register-teacher');
+Route::post('/register-teacher', [TeacherRegistrationController::class, 'store']);
+
+Route::view('/registration-pending', 'auth/registration-pending')->name('registration-pending');
+
+Route::view('/login', 'auth/login')->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+Route::get('/books', [LoginController::class, 'books'])->name('books');
+Route::get('/admin/dashboard', [LoginController::class, 'dashboard'])->name('admin/dashboard');
 
 
 Route::prefix('admin') -> group(function() {
-    Route::get('/dashboard', function () {
-        return view('admin/dashboard');
-    }) -> name('admin/dashboard');
-
     Route::get('/book-list', function () {
         return view('admin/books');
     }) -> name('admin/book-list');

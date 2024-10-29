@@ -7,18 +7,24 @@
             <img src="{{asset('assets/images/system/full-logo.png')}}" alt="logo">
         </div>
 
-        <form>
+        <form action="{{ route('login') }}" method="POST">
+            @csrf
             <!-- Email -->
             <div>
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="m@example.com" required>
+                <input type="email" id="email" name="email" placeholder="m@example.com" value="{{ old('email') }}" required>
             </div>
             
             <!-- Password -->
             <div>
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter Password" required>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
             </div>
+
+            <!-- Display Error -->
+            @if (session('error'))
+                <div class="error-msg">{{ session('error') }}</div>
+            @endif
 
             <!-- Login Button -->
             <div>
@@ -27,7 +33,7 @@
         </form>
 
         <div class="additional-links">
-            <p>Don't have an account? <a href="{{route('student-register')}}">Register</a></p>
+            <p>Don't have an account? <a href="{{route('register-student')}}">Register</a></p>
         </div>
     </div>
 @endsection

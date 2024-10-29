@@ -15,11 +15,11 @@
         <div class="site-logo"><a href="">Seminar Library</a></div>
 
         <div class="user-profile">
-            <img src="{{asset('img/profile-avater.png')}}" alt="profile picture">
+            <img src="{{asset('storage/'.session('user')->image)}}" alt="profile picture">
             <div id="dropdown-menu">
                 <div class="user-info">
-                    <img src="{{asset('img/profile-avater.png')}}" alt="profile picture">
-                    <div><p>Md. Nazmul Hossain</p><p>nazmul_hossain</p></div></div>
+                    <img src="{{asset('storage/'.session('user')->image)}}" alt="profile picture">
+                    <div><p>{{ session('user')->name }}</p><p>ID: {{ session('user')->registration_number }}</p></div></div>
                 <div class="profile-link">My Profile</div>
                 <div class="theme">
                     <p>Theme</p>
@@ -28,7 +28,7 @@
                         <li><span class="bullet"><span></span></span> Dark</li>
                     </ul>
                 </div>
-                <div class="logout-button"><button>Logout <i class="fa-solid fa-right-from-bracket"></i></button></div>
+                <div class="logout-button"><a href="{{ route('logout') }}"><button>Logout <i class="fa-solid fa-right-from-bracket"></i></button></a></div>
             </div>
         </div>
     </header>

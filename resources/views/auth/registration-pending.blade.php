@@ -18,8 +18,7 @@
         </form>
 
         <div class="additional-links">
-            <p>Don't have an account? <a href="{{route('student-register')}}">Register</a></p>
-            <p>Already have an account? <a href="{{route('login')}}">Login</a></p>
+            <p>Already approved? <a href="{{route('login')}}">Login</a></p>
         </div>
     </div>
 @endsection
