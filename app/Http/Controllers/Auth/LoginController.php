@@ -26,7 +26,7 @@ class LoginController extends Controller
             if ($user->user_type === 'Admin') {
                 return redirect()->route('admin/dashboard');
             } else {
-                return redirect()->route('books');
+                return redirect()->route('home');
             }
         }
 
@@ -48,10 +48,10 @@ class LoginController extends Controller
             return redirect()->route('login');
     }
 
-    public function books()
+    public function home()
     {
         if(session('user'))
-            return view('pages/books');
+            return view('pages/home');
         else
             return redirect()->route('login');
     }

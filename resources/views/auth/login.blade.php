@@ -4,7 +4,7 @@
     <div class="form-container">
         <div class="header">
             <h2>Login</h2>
-            <img src="{{asset('assets/images/system/full-logo.png')}}" alt="logo">
+            <img src="{{asset('assets/img/full-logo.png')}}" alt="logo">
         </div>
 
         <form action="{{ route('login') }}" method="POST">
@@ -39,5 +39,5 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{asset('css/login.min.css')}}">
+    <link rel="stylesheet" href="{{asset('auth/css/login.min.css')}}">
 @endpush

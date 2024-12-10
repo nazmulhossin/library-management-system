@@ -25,7 +25,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::get('/books', [LoginController::class, 'books'])->name('books');
+Route::get('/home', [LoginController::class, 'home'])->name('home');
 Route::get('/admin/dashboard', [LoginController::class, 'dashboard'])->name('admin/dashboard');
 
 
@@ -53,6 +53,10 @@ Route::prefix('admin') -> group(function() {
     Route::get('/member-list', function () {
         return view('admin/members');
     }) -> name('admin/members-list');
+
+    Route::get('/member-list1', function () {
+        return view('admin/members1');
+    }) -> name('admin/members-list1');
 
     Route::get('/approve-member', function () {
         return view('admin/approve-member');

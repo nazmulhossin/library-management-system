@@ -4,7 +4,7 @@
     <div class="form-container">
         <div class="header">
             <h2>Registration Pending</h2>
-            <img src="{{asset('assets/images/system/full-logo.png')}}" alt="logo">
+            <img src="{{asset('assets/img/full-logo.png')}}" alt="logo">
         </div>
 
         <form>
@@ -24,6 +24,6 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{asset('css/registration-pending.min.css')}}">
+    <link rel="stylesheet" href="{{asset('auth/css/registration-pending.min.css')}}">
 @endpush
 

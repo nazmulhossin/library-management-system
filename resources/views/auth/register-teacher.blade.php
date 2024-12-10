@@ -7,7 +7,7 @@
                 <h2>Teacher Registration</h2>
                 <p>Fill out the form carefully for registration</p>
             </div>
-            <img src="{{asset('assets/images/system/full-logo.png')}}" alt="logo">
+            <img src="{{asset('assets/img/full-logo.png')}}" alt="logo">
         </div>
 
         <form method="POST" action="{{ route('register-teacher') }}" enctype="multipart/form-data">
@@ -88,5 +88,5 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{asset('css/register.min.css')}}">
+    <link rel="stylesheet" href="{{asset('auth/css/register.min.css')}}">
 @endpush
