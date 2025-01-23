@@ -326,6 +326,20 @@ th {
   border-width: 0;
 }
 
+td {
+  vertical-align: middle !important;
+}
+
+td img {
+  width: 7vw;
+  height: auto;
+  border-radius: 3px;
+}
+
+.table-col-center {
+  text-align: center;
+}
+
 label {
   display: inline-block;
 }

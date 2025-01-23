@@ -8,7 +8,7 @@
     <link rel="icon" type="image/x-icon" href="favicon.png">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('user-view/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('user/css/style.css') }}">
     @stack('style')
 </head>
 <body>
@@ -70,10 +70,10 @@
 
     <!-- loader  -->
     <div class="loader-container">
-        <img src="{{ asset('user-view/img/loader-img.gif') }}" alt="">
+        <img src="{{ asset('user/img/loader-img.gif') }}" alt="">
     </div>
 
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-    <script src="{{ asset('user-view/js/script.js') }}"></script>
+    <script src="{{ asset('user/js/script.js') }}"></script>
 </body>
 </html>

@@ -9,33 +9,47 @@
                 <table id="datatablesSimple">
                     <thead>
                         <tr>
-                            <th>Book Code</th>
-                            <th>Book Name</th>
-                            <th>Authors</th>
-                            <th>Action</th>
+                            <th>Book ID</th>
+                            <th>Image</th>
+                            <th>Book's Info</th>
+                            <th>Available Copies</th>
+                            <th>Category</th>
+                            <th>Description</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Book Code</th>
-                            <th>Book Name</th>
-                            <th>Authors</th>
-                            <th>Action</th>
+                            <th>Book ID</th>
+                            <th>Image</th>
+                            <th>Book's Info</th>
+                            <th>Available Copies</th>
+                            <th>Category</th>
+                            <th>Description</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @for ($i = 1; $i <= 30; $i++)
+                        @foreach ($books as $book)
                             <tr>
-                                <td>3242221</td> <td>Introduction to Algorithms</td> <td>Thomas H. Cormen, Charles E. Leiserson, Ronald Rivest, Clifford Stein</td> <td>Edit | Delete</td>
-                            </tr> 
-                        @endfor
+                                <td>{{ $book->book_id }}</td>
+                                <td><div class="table-col-center"><img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" /></div></td>
+                                <td>
+                                    <div style="width: 25vw">
+                                        <b>Title: {{ $book->title }}</b> <br>
+                                        Author: {{ $book->author }} <br>
+                                        Publisher: {{ $book->publisher }} <br>
+                                        Edition: {{ $book->edition }} <br>
+                                        ISBN: {{$book->isbn }}
+                                    </div>
+                                    
+                                </td>
+                                <td>{{ $book->available_copies }} / {{ $book->total_copies }}</td>
+                                <td>{{ $book->category }}</td>
+                                <td>{{ $book->description }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 @endsection
-
-@push('style')
-    {{-- <link rel="stylesheet" href="{{ asset('css/admin-members.min.css') }}"> --}}
-@endpush

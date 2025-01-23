@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>@yield('title') - CSE Seminar Library, IU</title>
-        <link rel="icon" type="image/x-icon" href="favicon.png">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="{{ asset('admin-dashboard/css/styles.css') }}" rel="stylesheet" />
@@ -38,37 +38,41 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link active" href="{{ route('admin/dashboard') }}">
+                            <a class="{{ Route::currentRouteName() == 'admin/dashboard' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/dashboard') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <a class="nav-link" href="{{ route('admin/request-list') }}">
+                            <a class="{{ Route::currentRouteName() == 'admin/request-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/request-list') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-code-pull-request"></i></div>
                                 Request List
                             </a>
-                            <a class="nav-link" href="{{ route('admin/not-returned-list') }}">
+                            <a class="{{ Route::currentRouteName() == 'admin/not-returned-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/not-returned-list') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-xmark"></i></div>
                                 Not Returned List
                             </a>
-                            <a class="nav-link" href="{{ route('admin/issued-list') }}">
+                            <a class="{{ Route::currentRouteName() == 'admin/issued-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/issued-list') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-check"></i></div>
                                 Issued List
                             </a>
-                            <a class="nav-link" href="{{ route('admin/returned-list') }}">
+                            <a class="{{ Route::currentRouteName() == 'admin/returned-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/returned-list') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-reply"></i></div>
                                 Returned List
                             </a>
                             <div class="sb-sidenav-menu-heading">Manage Books</div>
-                            <a class="nav-link" href="{{ route('admin/book-list') }}">
+                            <a class="{{ Route::currentRouteName() == 'admin/add-book' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/add-book') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-book-medical"></i></div>
+                                Add Book
+                            </a>
+                            <a class="{{ Route::currentRouteName() == 'admin/book-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/book-list') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-book"></i></div>
                                 Book List
                             </a>
                             <div class="sb-sidenav-menu-heading">Manage Members</div>
-                            <a class="nav-link" href="{{ route('admin/approve-member') }}">
+                            <a class="{{ Route::currentRouteName() == 'admin/pending-members' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/pending-members') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-person-circle-check"></i></div>
-                                Approve Member
+                                Pending Members
                             </a>
-                            <a class="nav-link" href="{{ route('admin/members-list') }}">
+                            <a class="{{ Route::currentRouteName() == 'admin/member-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/member-list') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
                                 Member List
                             </a>
@@ -87,11 +91,6 @@
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; 2024 - {{date('Y')}} by <span>CSE Seminar Library, IU</span>. All rights reserved.</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
                         </div>
                     </div>
                 </footer>

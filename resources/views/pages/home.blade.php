@@ -16,7 +16,7 @@
                     <a href="#" class="swiper-slide"><img src="{{ asset('storage/books/cracking-the-coding-interview.jpg') }}" alt=""></a>
                     <a href="#" class="swiper-slide"><img src="{{ asset('storage/books/introduction-to-algorithms.jpg') }}" alt=""></a>
                 </div>
-                <img src="{{ asset('user-view/img/stand.png') }}" class="stand" alt="">
+                <img src="{{ asset('user/img/stand.png') }}" class="stand" alt="">
             </div>
         </div>
     </section>
@@ -299,5 +299,5 @@
 @endsection
 
 @push('style')
-    <link href="{{ asset('user-view/css/home.css') }}" rel="stylesheet">
+    <link href="{{ asset('user/css/home.css') }}" rel="stylesheet">
 @endpush

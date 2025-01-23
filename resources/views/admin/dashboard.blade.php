@@ -552,7 +552,3 @@
         </div> --}}
     </div>
 @endsection
-
-@push('style')
-    {{-- <link rel="stylesheet" href="{{ asset('css/admin-dashboard.min.css') }}"> --}}
-@endpush
