@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') CSE Seminar Library, IU</title>
-    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('user/css/style.css') }}">
@@ -26,17 +26,14 @@
             </form>
 
             <div class="user-profile">
-                <div class="profile-picture">
-                    <img src="{{asset('storage/'.session('user')->image)}}" alt="profile picture">
-                    <i class="fas fa-angle-down"></i>
+                <div class="user-info">
+                    <i class="far fa-user"></i>
+                    <p>{{ substr(session('user')->name, 0, 10) }}...</p>
+                    <i class="fas fa-caret-down"></i>
                 </div>
                 
                 <div id="dropdown-menu">
-                    <div class="user-info">
-                        <img src="{{asset('storage/'.session('user')->image)}}" alt="profile picture">
-                        <div><p>{{ session('user')->name }}</p><p>ID: {{ session('user')->registration_number }}</p></div>
-                    </div>
-                    <div class="link"><a href=""><i class="fas fa-user"></i> My Profile</a></div>
+                    <div class="link"><a href="{{ route('user', session('user')->username) }}"><i class="fas fa-user"></i> My Profile</a></div>
                     <div class="link"><a href=""><i class="fas fa-list-ul"></i> Requested Book List</a></div>
                     <div class="link"><a href=""><i class="fas fa-book-reader"></i> Borrowed Book List</a></div>
                     <div class="link"><a href=""><i class="fas fa-reply"></i> Returned Book List</a></div>

@@ -101,7 +101,7 @@ section{
     border-radius: .5rem;
 }
 
-.header .header-1 .search-form input{
+.header .header-1 .search-form input {
     font-size: 1.6rem;
     padding:0 1.2rem;
     height:100%;
@@ -109,14 +109,14 @@ section{
     color:var(--black);
 }
 
-.header .header-1 .search-form label{
+.header .header-1 .search-form label {
     font-size: 2.5rem;
-    padding-right: 1.5rem;
+    padding: 0 1rem;
     color:var(--black);
     cursor: pointer;
 }
 
-.header .header-1 .search-form label:hover{
+.header .header-1 .search-form label:hover {
     color:var(--green);
 }
 
@@ -125,38 +125,19 @@ header .header-1 .user-profile {
     align-items: center;
     position: relative;       
 }
-  
-header .header-1 .user-profile img {
-    width: 50px;
-    height: 50px;
-    background-color: #ddddf7;
-    border-radius: 50%;
-    cursor: pointer;
-}
 
-header .header-1 .user-profile .profile-picture {
+header .header-1 .user-profile .user-info {
     display: flex;
     align-items: center;
     position: relative;
-}
-
-header .header-1 .user-profile .profile-picture i {
-    font-size: 13px;
-    background-color: var(--black);
-    color: #fff;
-    width: 13px;
-    height: 13px;
-    text-align: center;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 5px;
-    right: 0;
+    gap: 7px;
+    font-size: 16px;
     cursor: pointer;
 }
-  
+
 header .header-1 .user-profile #dropdown-menu {
     position: absolute;
-    top: 55px;
+    top: 30px;
     right: 0;
     background-color: #FFFFFF;
     color: var(--black);
@@ -167,28 +148,6 @@ header .header-1 .user-profile #dropdown-menu {
     font-size: 16px;
     z-index: 10;
     display: none;
-}
-  
-header .header-1 .user-profile #dropdown-menu .user-info {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(210, 217, 231, 0.8);
-}
-  
-header .header-1 .user-profile #dropdown-menu .user-info img {
-    width: 60px;
-    height: 60px;
-    cursor: default;
-}
-  
-header .header-1 .user-profile #dropdown-menu .user-info div p:first-child {
-    font-weight: 600;
-}
-  
-header .header-1 .user-profile #dropdown-menu .user-info div p:last-child {
-    font-size: 15.5px;
 }
   
 header .header-1 .user-profile #dropdown-menu .link {

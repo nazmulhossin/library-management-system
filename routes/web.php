@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\StudentRegistrationController;
 use App\Http\Controllers\Auth\TeacherRegistrationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\User\UserController;
 
 Route::get('', function () {
     return view('auth/login');
@@ -26,13 +27,15 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
+// User Routes
 Route::get('/home', [LoginController::class, 'home'])->name('home');
-Route::get('/admin/dashboard', [LoginController::class, 'dashboard'])->name('admin/dashboard');
-
-
+Route::get('/user/{id}', [UserController::class, 'showUser'])->name('user');
+Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password');
 
 
 Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('admin/dashboard');
+
     Route::get('/add-book', function () { return view('admin/add-book'); })->name('admin/add-book');
     Route::post('/add-book', [AdminController::class, 'addBook'])->name('admin/add-book');
 
@@ -51,8 +54,6 @@ Route::prefix('admin')->group(function () {
 // });
 
 Route::prefix('admin') -> group(function() {
-
-
     Route::get('/issued-list', function () {
         return view('admin/issued');
     }) -> name('admin/issued-list');

@@ -29,25 +29,20 @@ function loader(){
 }
 
 function fadeOut(){
-  setTimeout(loader, 2000);
+  setTimeout(loader, 10);
 }
 
 /* Show and hide header dropdown menu */
-document.querySelector('.user-profile .profile-picture img').addEventListener('click', () => {
-  document.getElementById('dropdown-menu').classList.toggle('show-dropdown-menu');
-});
-
-document.querySelector('.user-profile .profile-picture i').addEventListener('click', () => {
+document.querySelector('.user-profile .user-info').addEventListener('click', () => {
   document.getElementById('dropdown-menu').classList.toggle('show-dropdown-menu');
 });
 
 // Close dropdown when clicking outside
 document.addEventListener('click', (event) => {
-  const profilePicture = document.querySelector('.user-profile .profile-picture img');
-  const profileIcon = document.querySelector('.user-profile .profile-picture i');
+  const userInfo = document.querySelector('.user-profile .user-info');
   const dropdownMenu = document.getElementById('dropdown-menu');
   // Check if the click is outside the dropdown and profile picture area
-  if (!dropdownMenu.contains(event.target) && !profilePicture.contains(event.target) && !profileIcon.contains(event.target)) {
+  if (!dropdownMenu.contains(event.target) && !userInfo.contains(event.target)) {
     dropdownMenu.classList.remove('show-dropdown-menu');
   }
 });

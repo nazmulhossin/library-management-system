@@ -1,0 +1,68 @@
+:root {
+  --green: #16A34A;
+  --dark-color: #159544;
+  --black:#444;
+  --light-color:#666;
+  --border:.1rem solid rgba(0,0,0,.1);
+  --border-hover:.1rem solid var(--black);
+  --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+.user-section {
+  background-color: #eeeefb;
+  display: flex;
+  padding: 20px 10%;
+  color: var(--black);
+  font-size: 16px;
+}
+.user-section .user-section-left {
+  width: 25%;
+}
+.user-section .user-section-left .profile-summary {
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.user-section .user-section-left .profile-summary img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+}
+.user-section .user-section-left .sidenav {
+  background-color: #fff;
+  margin: 20px 0;
+  border-radius: 3px;
+  padding: 10px 20px;
+}
+.user-section .user-section-left .sidenav .link {
+  padding: 10px 5px;
+}
+.user-section .user-section-left .sidenav .link a {
+  color: var(--black);
+  cursor: pointer;
+}
+.user-section .user-section-left .sidenav .link a i {
+  margin-right: 10px;
+}
+.user-section .user-section-left .sidenav .link a:hover {
+  color: var(--green);
+}
+.user-section .user-section-left .sidenav .link a:hover i {
+  color: var(--green);
+  margin-right: 15px;
+}
+.user-section .user-section-right {
+  background-color: #fff;
+  width: 75%;
+  margin-left: 30px;
+  border-radius: 3px;
+  padding: 30px 20px;
+}
+.user-section .user-section-right .page-heading {
+  font-size: 25px;
+  font-weight: 400;
+  border-bottom: 1px solid #d7d8e1;
+}

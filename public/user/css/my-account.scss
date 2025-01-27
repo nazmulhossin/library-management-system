@@ -1,0 +1,54 @@
+.personal-info, .change-password {
+    margin: 20px 0;
+}
+
+form {
+    > div {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    input {
+        width: 60%;
+        padding: 10px;
+        font-size: 14px;
+        outline: none;
+        border: 1px solid #d7d8e1;
+        border-radius: 5px;
+    }
+
+    div {
+        img {
+            height: 200px;
+        }
+    }
+
+    .error-msg {
+        color: red;
+    }
+
+    .success-msg {
+        color: green;
+    }
+
+    .submit-btn {
+        background-color: #16A34A;
+        color: #fff;
+        padding: 12px;
+        width: 20%;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+
+        &:hover {
+            background-color: #159544;
+        }
+    }
+}

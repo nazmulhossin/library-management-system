@@ -16,7 +16,7 @@
                 <!-- Book Description -->
                 <div>
                     <label for="description">Description</label>
-                    <textarea id="description" name="description">{{ old('description') }}</textarea>
+                    <textarea id="description" name="description" placeholder="Enter book description">{{ old('description') }}</textarea>
                 </div>
 
                 <div class="group-inputs">
