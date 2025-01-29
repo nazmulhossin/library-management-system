@@ -212,6 +212,10 @@ header .header-1 .user-profile #dropdown-menu.show-dropdown-menu {
     z-index: 1000;
 }
 
+.header .header-2 .navbar a.nav-active{
+    background-color: var(--dark-color);
+}
+
 .bottom-navbar{
     text-align: center;
     background:var(--green);
@@ -266,14 +270,7 @@ header .header-1 .user-profile #dropdown-menu.show-dropdown-menu {
 
 
 
-
-
-
-
-
-
 /* media queries  */
-
 @media (max-width:991px){
 
     html{

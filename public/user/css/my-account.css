@@ -1,17 +1,16 @@
-.personal-info, .change-password {
+.user-section-right .personal-info, .user-section-right .change-password {
   margin: 20px 0;
 }
-
-form > div {
+.user-section-right form > div {
   margin-bottom: 20px;
 }
-form label {
+.user-section-right form label {
   display: block;
   margin-bottom: 5px;
   font-size: 15px;
   font-weight: 500;
 }
-form input {
+.user-section-right form input {
   width: 60%;
   padding: 10px;
   font-size: 14px;
@@ -19,16 +18,16 @@ form input {
   border: 1px solid #d7d8e1;
   border-radius: 5px;
 }
-form div img {
+.user-section-right form div img {
   height: 200px;
 }
-form .error-msg {
+.user-section-right form .error-msg {
   color: red;
 }
-form .success-msg {
+.user-section-right form .success-msg {
   color: green;
 }
-form .submit-btn {
+.user-section-right form .submit-btn {
   background-color: #16A34A;
   color: #fff;
   padding: 12px;
@@ -38,6 +37,6 @@ form .submit-btn {
   cursor: pointer;
   font-size: 18px;
 }
-form .submit-btn:hover {
+.user-section-right form .submit-btn:hover {
   background-color: #159544;
 }

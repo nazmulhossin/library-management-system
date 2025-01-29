@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') CSE Seminar Library, IU</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('user/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('user/css/layout.css') }}">
     @stack('style')
 </head>
 <body>
@@ -28,7 +29,7 @@
             <div class="user-profile">
                 <div class="user-info">
                     <i class="far fa-user"></i>
-                    <p>{{ substr(session('user')->name, 0, 10) }}...</p>
+                    <p>{{ Str::limit(session('user')->name, 10) }}</p>
                     <i class="fas fa-caret-down"></i>
                 </div>
                 
@@ -44,9 +45,10 @@
 
         <div class="header-2">
             <nav class="navbar">
-                <a href="#home">Home</a>
-                <a href="#books">Books</a>
-                <a href="#research-paper">Research Paper</a>
+                <a class="{{ Route::currentRouteName() == 'all-books' ? 'nav-active' : '' }}" href="{{ route('all-books') }}">All Books</a>
+                <a class="{{ Route::currentRouteName() == 'programming-books' ? 'nav-active' : '' }}" href="{{ route('programming-books') }}">Programming</a>
+                <a class="{{ Route::currentRouteName() == 'machine-learning-books' ? 'nav-active' : '' }}" href="{{ route('machine-learning-books') }}">Machine Learning</a>
+                <a class="{{ Route::currentRouteName() == 'mathematics-books' ? 'nav-active' : '' }}" href="{{ route('mathematics-books') }}">Mathematics</a>
             </nav>
         </div>
     </header>

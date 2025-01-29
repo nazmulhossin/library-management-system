@@ -1,7 +1,7 @@
 @extends('layouts/user')
 @section('main_content')
     <!-- home section  -->
-    <section class="home" id="home">
+    {{-- <section class="home" id="home">
         <div class="row">
             <div class="content">
                 <h3>Popular Books</h3>
@@ -19,10 +19,10 @@
                 <img src="{{ asset('user/img/stand.png') }}" class="stand" alt="">
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- icons section starts  -->
-    <section class="icons-container">
+    {{-- <section class="icons-container">
         <div class="icons">
             <i class="fas fa-shipping-fast"></i>
             <div class="content">
@@ -54,7 +54,7 @@
                 <p>call us anytime</p>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 
     <!-- featured section starts  -->
@@ -166,7 +166,7 @@
     </section>
 
     <!-- research paper  -->
-    <section class="arrivals" id="arrivals">
+    {{-- <section class="arrivals" id="arrivals">
         <h1 class="heading"> <span>Research Paper</span> </h1>
 
         <div class="swiper arrivals-slider">
@@ -295,7 +295,7 @@
                 </a>
             </div>
         </div>
-    </section>
+    </section> --}}
 @endsection
 
 @push('style')

@@ -29,6 +29,15 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // User Routes
 Route::get('/home', [LoginController::class, 'home'])->name('home');
+
+Route::get('/all-books', [UserController::class, 'showAllBooks'])->name('all-books');
+Route::get('/programming-books', [UserController::class, 'showProgrammingBooks'])->name('programming-books');
+Route::get('/machine-learning-books', [UserController::class, 'showMachineLearningBooks'])->name('machine-learning-books');
+Route::get('/mathematics-books', [UserController::class, 'showMathematicsBooks'])->name('mathematics-books');
+
+Route::post('/borrow-request', [UserController::class, 'borrowRequest']);
+Route::post('/cancel-borrow-request', [UserController::class, 'cancelRequest']);
+
 Route::get('/user/{id}', [UserController::class, 'showUser'])->name('user');
 Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password');
 

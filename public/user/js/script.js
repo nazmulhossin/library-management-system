@@ -1,34 +1,30 @@
 searchForm = document.querySelector('.search-form');
 
-window.onscroll = () =>{
-
+window.onscroll = () => {
   searchForm.classList.remove('active');
 
-  if(window.scrollY > 80){
+  if (window.scrollY > 80) {
     document.querySelector('.header .header-2').classList.add('active');
-  }else{
+  } else {
     document.querySelector('.header .header-2').classList.remove('active');
   }
-
 }
 
-window.onload = () =>{
-
-  if(window.scrollY > 80){
+window.onload = () => {
+  if (window.scrollY > 80) {
     document.querySelector('.header .header-2').classList.add('active');
-  }else{
+  } else {
     document.querySelector('.header .header-2').classList.remove('active');
   }
 
   fadeOut();
-
 }
 
-function loader(){
+function loader() {
   document.querySelector('.loader-container').classList.add('active');
 }
 
-function fadeOut(){
+function fadeOut() {
   setTimeout(loader, 10);
 }
 
@@ -47,71 +43,57 @@ document.addEventListener('click', (event) => {
   }
 });
 
-var swiper = new Swiper(".books-slider", {
-  loop:true,
-  centeredSlides: true,
-  autoplay: {
-    delay: 9500,
-    disableOnInteraction: false,
-  },
-  breakpoints: {
-    0: {
-      slidesPerView: 1,
-    },
-    768: {
-      slidesPerView: 2,
-    },
-    1024: {
-      slidesPerView: 3,
-    },
-  },
-});
+// AJAX for handle borrow request
+document.querySelectorAll(".borrow-request").forEach(button => {
+  button.addEventListener("click", async function () {
+    let bookId = this.dataset.bookId;
+    let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // CSRF token
 
-var swiper = new Swiper(".featured-slider", {
-  spaceBetween: 10,
-  loop:true,
-  centeredSlides: true,
-  autoplay: {
-    delay: 9500,
-    disableOnInteraction: false,
-  },
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  breakpoints: {
-    0: {
-      slidesPerView: 1,
-    },
-    450: {
-      slidesPerView: 2,
-    },
-    768: {
-      slidesPerView: 3,
-    },
-    1024: {
-      slidesPerView: 4,
-    },
-  },
-});
-
-var swiper = new Swiper(".arrivals-slider", {
-  spaceBetween: 10,
-  loop:true,
-  centeredSlides: true,
-  autoplay: {
-    delay: 9500,
-    disableOnInteraction: false,
-  },
-  breakpoints: {
-    0: {
-      slidesPerView: 1,
-    },
-    768: {
-      slidesPerView: 2,
-    },
-    1024: {
-      slidesPerView: 3,
-    },
-  },
+    // Check if the button already has the 'cancel' class (i.e., the request was already made)
+    if (this.classList.contains('cancel-request')) {
+      // Sending an AJAX POST request to cancel the borrow request
+      fetch('/cancel-borrow-request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify({
+          book_id: bookId,
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            this.innerText = "Request to Borrow";
+            this.classList.remove('cancel-request');
+          }
+        })
+        .catch(error => {
+          console.log('Error:', error);
+        });
+    } else {
+      // Sending an AJAX POST request to request the borrow
+      fetch('/borrow-request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify({
+          book_id: bookId,
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          this.innerText = "Cancel Request";
+          this.classList.add('cancel-request');
+        }
+      })
+      .catch(error => {
+        console.log('Error:', error);
+      });
+    }
+  });
 });
