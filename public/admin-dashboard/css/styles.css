@@ -4227,6 +4227,10 @@ textarea.form-control-lg {
   color: var(--bs-card-color);
 }
 
+.card-body span {
+  font-size: 35px;
+}
+
 .card-title {
   margin-bottom: var(--bs-card-title-spacer-y);
 }

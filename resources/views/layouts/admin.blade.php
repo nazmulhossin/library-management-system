@@ -46,13 +46,13 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-code-pull-request"></i></div>
                                 Request List
                             </a>
-                            <a class="{{ Route::currentRouteName() == 'admin/not-returned-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/not-returned-list') }}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-xmark"></i></div>
-                                Not Returned List
-                            </a>
                             <a class="{{ Route::currentRouteName() == 'admin/issued-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/issued-list') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-check"></i></div>
                                 Issued List
+                            </a>
+                            <a class="{{ Route::currentRouteName() == 'admin/not-returned-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/not-returned-list') }}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-xmark"></i></div>
+                                Not Returned List
                             </a>
                             <a class="{{ Route::currentRouteName() == 'admin/returned-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/returned-list') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-reply"></i></div>

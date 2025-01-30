@@ -42,8 +42,19 @@ Route::get('/user/{id}', [UserController::class, 'showUser'])->name('user');
 Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password');
 
 
+// Routes for admin pannel
 Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', [LoginController::class, 'dashboard'])->name('admin/dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin/dashboard');
+
+    Route::get('/request-list', [AdminController::class, 'showRequestList'])->name('admin/request-list');
+    Route::post('/admin/approveRequest/{request_id}', [AdminController::class, 'approveRequest'])->name('admin/approveRequest');
+
+    Route::get('/issued-list', [AdminController::class, 'showIssuedList'])->name('admin/issued-list');
+    Route::get('/accept-returned-book/{borrow_id}', [AdminController::class, 'acceptReturnedBook'])->name('admin/accept-returned-book');
+
+    Route::get('/not-returned-list', [AdminController::class, 'showNotReturnedBooks'])->name('admin/not-returned-list');
+
+    Route::get('/returned-list', [AdminController::class, 'showReturnedBooks'])->name('admin/returned-list');
 
     Route::get('/add-book', function () { return view('admin/add-book'); })->name('admin/add-book');
     Route::post('/add-book', [AdminController::class, 'addBook'])->name('admin/add-book');
@@ -55,31 +66,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/user-decline/{id}', [AdminController::class, 'declineMember'])->name('admin/user-decline');
 
     Route::get('/member-list', [AdminController::class, 'showMembers'])->name('admin/member-list');
+
+    Route::get('/settings', function () { return view('admin/settings'); }) -> name('admin/settings');
 });
 
 // Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 //     Route::get('/user/approve/{id}', [AdminController::class, 'approve'])->name('admin.user.approve');
 //     Route::get('/user/decline/{id}', [AdminController::class, 'decline'])->name('admin.user.decline');
 // });
-
-Route::prefix('admin') -> group(function() {
-    Route::get('/issued-list', function () {
-        return view('admin/issued');
-    }) -> name('admin/issued-list');
-
-    Route::get('/returned-list', function () {
-        return view('admin/returned');
-    }) -> name('admin/returned-list');
-
-    Route::get('/not-returned-list', function () {
-        return view('admin/not-returned');
-    }) -> name('admin/not-returned-list');
-
-    Route::get('/request-list', function () {
-        return view('admin/request');
-    }) -> name('admin/request-list');
-
-    Route::get('/settings', function () {
-        return view('admin/settings');
-    }) -> name('admin/settings');
-});

@@ -40,14 +40,6 @@ class LoginController extends Controller
         return redirect()->route('login');
     }
 
-    public function dashboard()
-    {
-        if(session('user'))
-            return view('admin/dashboard');
-        else
-            return redirect()->route('login');
-    }
-
     public function home()
     {
         if(session('user'))
