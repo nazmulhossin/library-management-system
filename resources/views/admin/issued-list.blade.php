@@ -44,7 +44,7 @@
                                 <td>{{ \Carbon\Carbon::parse($book->due_date)->format('M d, Y') }}</td>
                                 <td>
                                     <div class="table-col-center">
-                                        <a class="btn btn-success me-2" role="button" href="{{ route('admin/accept-returned-book', $book->borrow_id) }}">Accept Book</a>
+                                        <a class="btn btn-success me-2" role="button" href="{{ route('admin/receive-returned-book', $book->borrow_id) }}">Receive Book</a>
                                     </div>
                                 </td>
                             </tr>

@@ -1,0 +1,42 @@
+.change-password .change-password {
+  margin: 20px 0;
+}
+.change-password form > div {
+  margin-bottom: 20px;
+}
+.change-password form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.change-password form input {
+  width: 60%;
+  padding: 10px;
+  font-size: 14px;
+  outline: none;
+  border: 1px solid #d7d8e1;
+  border-radius: 5px;
+}
+.change-password form div img {
+  height: 200px;
+}
+.change-password form .error-msg {
+  color: red;
+}
+.change-password form .success-msg {
+  color: green;
+}
+.change-password form .submit-btn {
+  background-color: #16A34A;
+  color: #fff;
+  padding: 12px;
+  width: 15%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+.change-password form .submit-btn:hover {
+  background-color: #159544;
+}

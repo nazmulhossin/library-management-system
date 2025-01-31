@@ -54,7 +54,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/assign-book-manually/{book_id}/{reg_no}', [AdminController::class, 'assignBookManually'])->name('admin/assign-book-manually');
 
     Route::get('/issued-list', [AdminController::class, 'showIssuedList'])->name('admin/issued-list');
-    Route::get('/accept-returned-book/{borrow_id}', [AdminController::class, 'acceptReturnedBook'])->name('admin/accept-returned-book');
+    Route::get('/receive-returned-book/{borrow_id}', [AdminController::class, 'receiveReturnedBook'])->name('admin/receive-returned-book');
 
     Route::get('/not-returned-list', [AdminController::class, 'showNotReturnedBooks'])->name('admin/not-returned-list');
 
@@ -72,6 +72,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/member-list', [AdminController::class, 'showMembers'])->name('admin/member-list');
 
     Route::get('/settings', function () { return view('admin/settings'); }) -> name('admin/settings');
+    Route::post('/change-password', [AdminController::class, 'changePassword']) -> name('admin/change-password');
 });
 
 // Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {

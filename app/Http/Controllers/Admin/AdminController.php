@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -201,7 +202,7 @@ class AdminController extends Controller
         return view('admin/issued-list', compact('issuedBooks'));
     }
 
-    public function acceptReturnedBook($borrow_id)
+    public function receiveReturnedBook($borrow_id)
     {
         // Update return_date to current timestamp
         DB::table('borrowed_books')
@@ -306,14 +307,12 @@ class AdminController extends Controller
         return redirect()->route('admin/book-list');
     }
 
-
     public function showBooks()
     {
         $books = DB::table('books') ->get();
 
         return view('admin/books', compact('books'));
     }
-
 
     public function showPendingUsers()
     {
@@ -343,7 +342,6 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-
     public function showMembers()
     {
         $members = DB::table('users')
@@ -353,5 +351,31 @@ class AdminController extends Controller
             ->get();
 
         return view('admin/members', compact('members'));
+    }
+
+    public function changePassword(Request $request)
+    {
+        // Validate the input
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8|confirmed', // Confirmed checks if new_password == confirm_password
+        ]);
+
+        $user = DB::table('users')->where('user_id', session('user')->user_id)->first();
+
+        // Check if the old password matches
+        if (!Hash::check($request->old_password, $user->password)) {
+            return back()->withErrors(['old_password' => 'The old password is incorrect.']);
+        }
+
+        // Update the password
+        DB::table('users')
+            ->where('user_id', $user->user_id)
+            ->update([
+                'password' => Hash::make($request->new_password),
+                'updated_at' => now()
+            ]);
+
+        return redirect()->back()->with('success', 'Password changed successfully.');
     }
 }
