@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>@yield('title') - CSE Seminar Library, IU</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
@@ -45,6 +46,10 @@
                             <a class="{{ Route::currentRouteName() == 'admin/request-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/request-list') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-code-pull-request"></i></div>
                                 Request List
+                            </a>
+                            <a class="{{ Route::currentRouteName() == 'admin/assign-book-form' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/assign-book-form') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-plus"></i></div>
+                                Assign Book Manually
                             </a>
                             <a class="{{ Route::currentRouteName() == 'admin/issued-list' ? 'nav-link active' : 'nav-link' }}" href="{{ route('admin/issued-list') }}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-check"></i></div>
@@ -96,11 +101,14 @@
                 </footer>
             </div>
         </div>
+
+        <!-- loader  -->
+        {{-- <div class="loader-container">
+            <img src="{{ asset('admin-dashboard/assets/img/loader.gif') }}" alt="">
+        </div> --}}
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="{{ asset('admin-dashboard/js/scripts.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="{{ asset('admin-dashboard/assets/demo/chart-area-demo.js') }}"></script>
-        <script src="{{ asset('admin-dashboard/assets/demo/chart-bar-demo.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="{{ asset('admin-dashboard/js/datatables-simple-demo.js') }}"></script>
     </body>

@@ -95,7 +95,7 @@
                 
                 <!-- Register Button -->
                 <div class="submit-btn-container">
-                    <button type="submit" class="submit-btn">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </form>
         </div>

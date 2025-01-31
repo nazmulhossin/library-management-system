@@ -31,8 +31,15 @@
                         @foreach ($issuedBooks as $book)
                             <tr>
                                 <td><div class="table-col-center"><img src="{{ asset('storage/' . $book->book_cover_image) }}" alt="{{ $book->book_title }}" /></div></td>
-                                <td>Book ID: {{ $book->book_id }} <br> Title: {{ $book->book_title }} <br> Author: {{ $book->book_author }}</td>
-                                <td>Name: {{ $book->user_name}} <br> Reg. No: {{ $book->user_reg_number }}</td>
+                                <td>
+                                    <strong>Book ID:</strong> {{ $book->book_id }} <br> 
+                                    <strong>Title:</strong> {{ $book->book_title }} <br> 
+                                    <strong>Author:</strong> {{ $book->book_author }}
+                                </td>
+                                <td>
+                                    <strong>Name:</strong> {{ $book->user_name}} <br> 
+                                    <strong>Reg. No:</strong> {{ $book->user_reg_number }}
+                                </td>
                                 <td>{{ \Carbon\Carbon::parse($book->borrow_date)->format('M d, Y') }}</td>
                                 <td>{{ \Carbon\Carbon::parse($book->due_date)->format('M d, Y') }}</td>
                                 <td>

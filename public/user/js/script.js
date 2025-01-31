@@ -25,7 +25,7 @@ function loader() {
 }
 
 function fadeOut() {
-  setTimeout(loader, 10);
+  setTimeout(loader, 500);
 }
 
 /* Show and hide header dropdown menu */

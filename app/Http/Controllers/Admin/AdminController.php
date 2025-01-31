@@ -105,6 +105,81 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Book borrowed successfully.');
     }
 
+    public function getBookAndUserInfo(Request $request)
+    {
+        $bookId = $request->book_id;
+        $regNo = $request->reg_no;
+
+        // Fetch book details
+        $book = DB::table('books')->where('book_id', $bookId)->first();
+        
+        // Fetch user details
+        $user = DB::table('users')->where('registration_number', $regNo)->where('status', 'Approved')->first();
+
+        if (!$book) {
+            return response()->json(['error' => 'Book not found'], 404);
+        }
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        // Return book and user details
+        return response()->json([
+            'book' => [
+                'book_id' => $book->book_id,
+                'title' => $book->title,
+                'author' => $book->author,
+                'cover_image' => asset('storage/' . $book->cover_image),
+                'available_copies' => $book->available_copies
+            ],
+            'user' => [
+                'name' => $user->name,
+                'reg_no' => $user->registration_number,
+                'image' => asset('storage/' . $user->image)
+            ]
+        ]);
+    }
+
+    public function assignBookManually($book_id, $reg_no, Request $request)
+    {
+        // Validate the input
+        $request->validate([
+            'days' => 'required|integer|min:1'
+        ]);        
+
+        // Check if the book exists and is available
+        $book = DB::table('books')->where('book_id', $book_id)->first();
+        if (!$book || $book->available_copies < 1) {
+            return redirect()->back()->with('error', 'Book is not available.');
+        }
+
+        // Check if the user exists
+        $user = DB::table('users')->where('registration_number', $reg_no)->first();
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        // Calculate the due date based on user input
+        $dueDate = Carbon::now()->addDays((int) $request->days);
+
+        // Insert into borrowed_books table
+        DB::table('borrowed_books')->insert([
+            'book_id' => $book_id,
+            'user_id' => $user->user_id,
+            'borrow_date' => Carbon::now(),
+            'due_date' => $dueDate,
+            'return_date' => null,
+            'notify_date' => null,
+        ]);
+
+        // Update available copies in books table
+        DB::table('books')->where('book_id', $book_id)->decrement('available_copies');
+
+        // Redirect to issued book list with success message
+        return redirect()->route('admin/issued-list');
+    }
+
     public function showIssuedList()
     {
         $issuedBooks = DB::table('borrowed_books')

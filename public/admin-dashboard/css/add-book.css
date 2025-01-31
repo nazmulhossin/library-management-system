@@ -46,17 +46,6 @@
   display: flex;
   justify-content: right;
 }
-.form-container form .submit-btn-container .submit-btn {
-  background-color: #16A34A;
-  color: #fff;
-  margin-top: 10px;
-  padding: 12px;
-  width: 15%;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-}
-.form-container form .submit-btn-container .submit-btn:hover {
-  background-color: #159544;
+.form-container form .submit-btn-container .btn.btn-success {
+  padding: 7px 25px;
 }

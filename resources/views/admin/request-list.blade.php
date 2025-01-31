@@ -31,9 +31,17 @@
                         @foreach ($borrowRequests as $request)
                             <tr>
                                 <td><div class="table-col-center"><img src="{{ asset('storage/' . $request->book_cover_image) }}" alt="{{ $request->book_title }}" /></div></td>
-                                <td>Book ID: {{ $request->book_id }} <br> Title: {{ $request->book_title }} <br> Author: {{ $request->book_author }} <br> Available Copies: {{ $request->books_available_copies }}</td>
+                                <td>
+                                    <strong>Book ID:</strong> {{ $request->book_id }} <br> 
+                                    <strong>Title:</strong> {{ $request->book_title }} <br> 
+                                    <strong>Author:</strong> {{ $request->book_author }} <br> 
+                                    <strong>Available Copies:</strong> {{ $request->books_available_copies }}
+                                </td>
                                 <td><div class="table-col-center"><img src="{{ asset('storage/' . $request->user_image) }}" alt="{{ $request->user_name }}" /></div></td>
-                                <td>Name: {{ $request->user_name}} <br> Reg. No: {{ $request->user_reg_number }}</td>
+                                <td>
+                                    <strong>Name:</strong> {{ $request->user_name}} <br> 
+                                    <strong>Reg. No:</strong> {{ $request->user_reg_number }}
+                                </td>
                                 <td>{{ $request->request_date }}</td>
                                 <td>
                                     <form action="{{ route('admin/approveRequest', $request->request_id) }}" method="POST">

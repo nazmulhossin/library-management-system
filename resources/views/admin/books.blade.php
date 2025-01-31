@@ -34,11 +34,11 @@
                                 <td><div class="table-col-center"><img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" /></div></td>
                                 <td>
                                     <div style="width: 25vw">
-                                        <b>Title: {{ $book->title }}</b> <br>
-                                        Author: {{ $book->author }} <br>
-                                        Publisher: {{ $book->publisher }} <br>
-                                        Edition: {{ $book->edition }} <br>
-                                        ISBN: {{$book->isbn }}
+                                        <strong>Title:</strong> {{ $book->title }} <br>
+                                        <strong>Author:</strong> {{ $book->author }} <br>
+                                        <strong>Publisher:</strong> {{ $book->publisher }} <br>
+                                        <strong>Edition:</strong> {{ $book->edition }} <br>
+                                        <strong>ISBN:</strong> {{$book->isbn }}
                                     </div>
                                     
                                 </td>

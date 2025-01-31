@@ -49,6 +49,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/request-list', [AdminController::class, 'showRequestList'])->name('admin/request-list');
     Route::post('/admin/approveRequest/{request_id}', [AdminController::class, 'approveRequest'])->name('admin/approveRequest');
 
+    Route::get('/assign-book-form', function () { return view('admin/assign-book'); })->name('admin/assign-book-form');
+    Route::post('/get-book-user-info', [AdminController::class, 'getBookAndUserInfo']);
+    Route::post('/assign-book-manually/{book_id}/{reg_no}', [AdminController::class, 'assignBookManually'])->name('admin/assign-book-manually');
+
     Route::get('/issued-list', [AdminController::class, 'showIssuedList'])->name('admin/issued-list');
     Route::get('/accept-returned-book/{borrow_id}', [AdminController::class, 'acceptReturnedBook'])->name('admin/accept-returned-book');
 
