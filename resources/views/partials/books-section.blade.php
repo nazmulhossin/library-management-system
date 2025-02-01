@@ -5,7 +5,7 @@
         <div class="books-container">
             @foreach($books as $book)
                 <div class="book">
-                    <a href="">
+                    <a href="{{ route('show-book-details', $book->book_id) }}">
                         <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
                         <p>View Details</p>
                     </a>

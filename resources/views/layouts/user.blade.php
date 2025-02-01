@@ -18,7 +18,7 @@
     <header class="header">
         <div class="header-1">
             <div>
-                <a href="{{ route('home') }}" class="logo"> <img src="{{ asset('assets/img/full-logo.png') }}" alt=""></a>
+                <a href="{{ route('all-books') }}" class="logo"> <img src="{{ asset('assets/img/full-logo.png') }}" alt=""></a>
             </div>
             
             <form action="" class="search-form">
@@ -34,10 +34,10 @@
                 </div>
                 
                 <div id="dropdown-menu">
-                    <div class="link"><a href="{{ route('user', session('user')->username) }}"><i class="fas fa-user"></i> My Profile</a></div>
-                    <div class="link"><a href=""><i class="fas fa-list-ul"></i> Requested Book List</a></div>
-                    <div class="link"><a href=""><i class="fas fa-book-reader"></i> Borrowed Book List</a></div>
-                    <div class="link"><a href=""><i class="fas fa-reply"></i> Returned Book List</a></div>
+                    <div class="link"><a href="{{ route('my-profile') }}"><i class="fas fa-user"></i> My Profile</a></div>
+                    <div class="link"><a href="{{ route('my-requested-book-list') }}"><i class="fas fa-list-ul"></i> Requested Book List</a></div>
+                    <div class="link"><a href="{{ route('my-borrowed-book-list') }}"><i class="fas fa-book-reader"></i> Borrowed Book List</a></div>
+                    <div class="link"><a href="{{ route('my-returned-book-list') }}"><i class="fas fa-reply"></i> Returned Book List</a></div>
                     <div class="logout-button"><a href="{{ route('logout') }}" class="btn">Logout <i class="fas fa-sign-out-alt"></i></a></div>
                 </div>
             </div>

@@ -14,7 +14,8 @@
     padding: 20px 10%;
     color: var(--black);
     font-size: 16px;
-    
+    min-height: 85vh;
+
     .user-section-left {
         width: 25%;
 
@@ -59,6 +60,15 @@
                         }
                     }
                 }
+
+                &.nav-active a {
+                    color: var(--green);
+
+                    i {
+                        color: var(--green);
+                        margin-right: 15px;
+                    }
+                }
             }
         }
     }
@@ -68,12 +78,172 @@
         width: 75%;
         margin-left: 30px;
         border-radius: 3px;
-        padding: 30px 20px;
+        padding: 30px;
 
         .page-heading {
             font-size: 25px;
             font-weight: 400;
             border-bottom: 1px solid #d7d8e1;
+        }
+
+        > div {
+            margin: 20px 0;
+        }
+
+        form {
+            > div {
+                margin-bottom: 20px;
+            }
+        
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-size: 15px;
+                font-weight: 500;
+            }
+        
+            input {
+                width: 60%;
+                padding: 10px;
+                font-size: 14px;
+                outline: none;
+                border: 1px solid #d7d8e1;
+                border-radius: 5px;
+            }
+        
+            div {
+                img {
+                    height: 200px;
+                }
+            }
+        
+            .error-msg {
+                color: red;
+            }
+        
+            .success-msg {
+                color: green;
+            }
+        
+            .submit-btn {
+                background-color: #16A34A;
+                color: #fff;
+                padding: 12px;
+                width: 20%;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 18px;
+        
+                &:hover {
+                    background-color: #159544;
+                }
+            }
+        }
+
+        .table-container {
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                border-radius: 8px;
+            
+                th, td {
+                    padding: 12px;
+                    text-align: left;
+                    border-bottom: 1px solid #ddd;
+                }
+            
+                thead {
+                    th {
+                        font-weight: 600;
+                    }
+                }
+            
+                tbody {
+                    tr {
+                        &:hover {
+                            background-color: #f1f1f1;
+                        }
+                    }
+
+                    td {
+                        img {
+                            width: 80px;
+                        }
+
+                        .btn-danger {
+                            padding: 5px 10px;
+                            background-color: #c82333;
+                            font-size: 16px;
+                            font-weight: 400;
+
+                            &:hover {
+                                background-color: #b2202f;
+                            }
+                        }
+                    }
+
+                    a:hover img {
+                        scale: 1.07;
+                    }
+
+                    .table-content-center {
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            // Pagination Styling
+            .pagination {
+                margin-top: 25px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                list-style: none;
+
+                .page-item {
+                    margin: 0 4px;
+
+                    .page-link {
+                        color: var(--green);
+                        padding: 8px 12px;
+                        border: 1px solid #dee2e6;
+                        text-decoration: none;
+                        border-radius: 3px;
+                        transition: all 0.3s ease;
+
+                        &:hover {
+                            background-color: var(--green);
+                            color: #fff;
+                        }
+                    }
+
+                    &.disabled .page-link {
+                        color: #6c757d;
+                        pointer-events: none;
+                        background-color: #f8f9fa;
+                        border-color: #dee2e6;
+                    }
+
+                    &.active .page-link {
+                        background-color: var(--dark-color);
+                        border-color: var(--dark-color);
+                        color: white;
+                    }
+                }
+
+                // Style Previous & Next Buttons to Show Only Arrows
+                .page-item:first-child .page-link,
+                .page-item:last-child .page-link {
+                    width: 36px;
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 27px;
+                }
+            }
         }
     }
 }

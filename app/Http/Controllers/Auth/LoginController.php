@@ -26,7 +26,7 @@ class LoginController extends Controller
             if ($user->user_type === 'Admin') {
                 return redirect()->route('admin/dashboard');
             } else {
-                return redirect()->route('home');
+                return redirect()->route('all-books');
             }
         }
 
@@ -38,13 +38,5 @@ class LoginController extends Controller
         Session::forget('user'); // Clear user session data
         Auth::logout();
         return redirect()->route('login');
-    }
-
-    public function home()
-    {
-        if(session('user'))
-            return view('pages/home');
-        else
-            return redirect()->route('login');
     }
 }

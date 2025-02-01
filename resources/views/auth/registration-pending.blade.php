@@ -9,7 +9,7 @@
 
         <form>
             <div>
-                Dear [User's Name], <br><br>
+                Dear User, <br><br>
                 Thank you for registering. Your account has been successfully created, but it is currently pending approval. 
                 Please visit the library authority to verify your details and complete the account activation process. 
                 Once your account is verified, you'll be able to access all library services. <br><br>

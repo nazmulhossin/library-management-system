@@ -12,7 +12,6 @@ Route::get('', function () {
 })->name('login');
 
 
-
 // Authentication Routes
 Route::view('/register-student', 'auth/register-student')->name('register-student');
 Route::post('/register-student', [StudentRegistrationController::class, 'store']);
@@ -28,8 +27,6 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 // User Routes
-Route::get('/home', [LoginController::class, 'home'])->name('home');
-
 Route::get('/all-books', [UserController::class, 'showAllBooks'])->name('all-books');
 Route::get('/programming-books', [UserController::class, 'showProgrammingBooks'])->name('programming-books');
 Route::get('/machine-learning-books', [UserController::class, 'showMachineLearningBooks'])->name('machine-learning-books');
@@ -37,10 +34,15 @@ Route::get('/mathematics-books', [UserController::class, 'showMathematicsBooks']
 
 Route::post('/borrow-request', [UserController::class, 'borrowRequest']);
 Route::post('/cancel-borrow-request', [UserController::class, 'cancelRequest']);
+Route::delete('/cancel-borrow-request-with-id/{book_id}', [UserController::class, 'cancelRequestWithID'])->name('cancel-borrow-request-with-id');
 
-Route::get('/user/{id}', [UserController::class, 'showUser'])->name('user');
+Route::get('/book/{book_id}', [UserController::class, 'showBookDetails'])->name('show-book-details');
+
+Route::get('/my-profile', function () { return view('user/my-profile'); })->name('my-profile');
 Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password');
-
+Route::get('/my-requested-book-list', [UserController::class, 'showRequestedBookList'])->name('my-requested-book-list');
+Route::get('/my-borrowed-book-list', [UserController::class, 'showBorrowedBookList'])->name('my-borrowed-book-list');
+Route::get('/my-returned-book-list', [UserController::class, 'showReturnedBookList'])->name('my-returned-book-list');
 
 // Routes for admin pannel
 Route::prefix('admin')->group(function () {
