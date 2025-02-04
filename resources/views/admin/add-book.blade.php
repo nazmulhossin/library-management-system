@@ -71,7 +71,7 @@
                             <option value="Database" {{ old('category') == 'Database' ? 'selected' : '' }}>Database</option>
                             <option value="Machine Learning" {{ old('category') == 'Machine Learning' ? 'selected' : '' }}>Machine Learning</option>
                             <option value="Cyber Security" {{ old('category') == 'Cyber Security' ? 'selected' : '' }}>Cyber Security</option>
-
+                            <option value="Others" {{ old('category') == 'Others' ? 'selected' : '' }}>Others</option>
                         </select>
                     </div>            
 

@@ -44,56 +44,80 @@ document.addEventListener('click', (event) => {
 });
 
 // AJAX for handle borrow request
-document.querySelectorAll(".borrow-request").forEach(button => {
-  button.addEventListener("click", async function () {
-    let bookId = this.dataset.bookId;
-    let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // CSRF token
+document.addEventListener("click", async function (event) {
+  let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    // Check if the button already has the 'cancel' class (i.e., the request was already made)
-    if (this.classList.contains('cancel-request')) {
-      // Sending an AJAX POST request to cancel the borrow request
-      fetch('/cancel-borrow-request', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': token
-        },
-        body: JSON.stringify({
-          book_id: bookId,
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'success') {
-            this.innerText = "Request to Borrow";
-            this.classList.remove('cancel-request');
-          }
-        })
-        .catch(error => {
-          console.log('Error:', error);
-        });
-    } else {
-      // Sending an AJAX POST request to request the borrow
+  // Send Borrow Request
+  if (event.target.classList.contains("send-borrow-request")) {
+      let bookId = event.target.dataset.bookId;
+
       fetch('/borrow-request', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': token
-        },
-        body: JSON.stringify({
-          book_id: bookId,
-        })
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': token
+          },
+          body: JSON.stringify({ book_id: bookId })
       })
       .then(response => response.json())
       .then(data => {
-        if (data.status === 'success') {
-          this.innerText = "Cancel Request";
-          this.classList.add('cancel-request');
-        }
+          if (data.status === 'success') {
+              event.target.innerText = "Cancel Request";
+              event.target.classList.add('cancel-request');
+              event.target.classList.remove('send-borrow-request');
+          }
       })
-      .catch(error => {
-        console.log('Error:', error);
-      });
-    }
-  });
+      .catch(error => console.log('Error:', error));
+  }
+
+  // Cancel Request
+  if (event.target.classList.contains("cancel-request")) {
+      let bookId = event.target.dataset.bookId;
+
+      fetch('/cancel-borrow-request', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': token
+          },
+          body: JSON.stringify({ book_id: bookId })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.status === 'success') {
+              event.target.innerText = "Request to Borrow";
+              event.target.classList.remove('cancel-request');
+              event.target.classList.add('send-borrow-request');
+          }
+      })
+      .catch(error => console.log('Error:', error));
+  }
+});
+
+var swiper = new Swiper(".books-slider", {
+  spaceBetween: 5,
+  loop:true,
+  centeredSlides: true,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  breakpoints: {
+    0: {
+      slidesPerView: 1,
+    },
+    450: {
+      slidesPerView: 2,
+    },
+    768: {
+      slidesPerView: 3,
+    },
+    1024: {
+      slidesPerView: 4,
+    },
+  },
 });

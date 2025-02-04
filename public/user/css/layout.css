@@ -60,13 +60,13 @@ section{
 .btn{
     margin-top: 1rem;
     display:inline-block;
-    padding:.9rem 3rem;
-    border-radius: .5rem;
+    padding: 7px 20px;
+    border-radius: 3px;
     color:#fff;
     background:var(--green);
-    font-size: 1.7rem;
+    font-size: 15px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 400;     
 }
 
 .btn:hover{
@@ -109,14 +109,15 @@ section{
     color:var(--black);
 }
 
-.header .header-1 .search-form label {
+.header .header-1 .search-form button {
+    height: 100%;
     font-size: 2.5rem;
     padding: 0 1rem;
     color:var(--black);
     cursor: pointer;
 }
 
-.header .header-1 .search-form label:hover {
+.header .header-1 .search-form button:hover {
     color:var(--green);
 }
 
@@ -234,6 +235,56 @@ header .header-1 .user-profile #dropdown-menu.show-dropdown-menu {
 .bottom-navbar a:hover{
     background:var(--dark-color);
 }
+
+.no-books-available {
+    font-size: 16px;
+    margin: 20px 0;
+}
+
+/* Pagination Styling */
+.pagination {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+  }
+  .pagination .page-item {
+    margin: 0 4px;
+    font-size: 16px;
+  }
+  .pagination .page-item .page-link {
+    color: var(--green);
+    padding: 8px 12px;
+    border: 1px solid #dee2e6;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  .pagination .page-item .page-link:hover {
+    background-color: var(--green);
+    color: #fff;
+  }
+  .pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+  }
+  .pagination .page-item.active .page-link {
+    background-color: var(--dark-color);
+    border-color: var(--dark-color);
+    color: white;
+  }
+  .pagination .page-item:first-child .page-link,
+  .pagination .page-item:last-child .page-link {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+  }
 
 .footer .credit{
     padding: 30px 1rem;

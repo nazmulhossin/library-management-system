@@ -309,8 +309,7 @@ class AdminController extends Controller
 
     public function showBooks()
     {
-        $books = DB::table('books') ->get();
-
+        $books = DB::table('books')->orderBy('book_id', 'desc')->get();
         return view('admin/books', compact('books'));
     }
 

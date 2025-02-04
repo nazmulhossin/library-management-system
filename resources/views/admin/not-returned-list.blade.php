@@ -30,7 +30,7 @@
                     <tbody>
                         @foreach ($notReturnedBooks as $book)
                             <tr>
-                                <td><div class="table-col-center"><img src="{{ asset('storage/' . $book->book_cover_image) }}" alt="{{ $book->book_title }}" /></div></td>
+                                <td><div class="table-col-center"><img src="{{ asset('storage/' . $book->book_cover) }}" alt="{{ $book->book_title }}" /></div></td>
                                 <td>
                                     <strong>Book ID:</strong> {{ $book->book_id }} <br> 
                                     <strong>Title:</strong> {{ $book->book_title }} <br> 

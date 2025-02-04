@@ -47,32 +47,6 @@
                     </div>
                 @endif
             </div>
-
-            <div class="table-container">            
-                @if($requestedBooks->isEmpty())
-                    <p class="text-danger">No requested books found.</p>
-                @else
-                    <table>
-                        <thead>
-                            <tr>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($requestedBooks as $book)
-                            <tr>
-                                
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-            
-                    <!-- Pagination Links -->
-                    <div class="d-flex justify-content-center">
-                        {{ $requestedBooks->links() }}
-                    </div>
-                @endif
-            </div>
         </section>
     </div>
 @endsection

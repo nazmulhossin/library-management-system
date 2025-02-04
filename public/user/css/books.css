@@ -32,8 +32,8 @@
   position: relative;
 }
 .book-section-container .books-container .book a img {
-  height: 250px;
-  border-radius: 3px;
+  height: 230px;
+  border-radius: 2px;
 }
 .book-section-container .books-container .book a p {
   position: absolute;
@@ -74,14 +74,14 @@
 .book-section-container .books-container .book .book-info .not-available {
   color: red;
 }
-.book-section-container .books-container .book .borrow-request, .book-section-container .books-container .book .cancel-request {
-  padding: 7px 20px;
-  font-size: 16px;
-  font-weight: 400;
-}
 .book-section-container .books-container .book .cancel-request {
   background-color: #c82333;
 }
 .book-section-container .books-container .book .cancel-request:hover {
   background-color: #b2202f;
+}
+.book-section-container .books-container .book .already-borrowed {
+  background-color: #ebebeb;
+  color: #737373;
+  cursor: default;
 }

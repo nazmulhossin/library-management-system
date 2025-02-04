@@ -1,0 +1,233 @@
+:root{
+    --green: #16A34A;
+    --dark-color: #159544;
+    --black:#444;
+    --light-color:#666;
+    --border:.1rem solid rgba(0,0,0,.1);
+    --border-hover:.1rem solid var(--black);
+    --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+.book-section {
+    background-color: #eeeefb;
+    display: flex;
+    padding: 20px 10%;
+    color: var(--black);
+    font-size: 16px;
+
+    .book-card {
+        width: 100%;
+        display: flex;
+        gap: 40px;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 3px;
+        
+
+        .book-cover {
+            width: 25%;
+            text-align: center;
+            img {
+                width: 100%;
+                padding: 25px;
+                border: 1px solid #d7d8e1;
+            }
+
+            .availability {
+                i {
+                    margin-right: 5px;
+                }
+
+                .fa-times-circle {
+                    display: none;
+                }
+            }
+
+            .available {
+                color: var(--green);
+            }
+
+            .not-available {
+                color: red;
+
+                .fa-times-circle {
+                    display: inline;
+                }
+
+                .fa-check-circle {
+                    display: none;
+                }
+            }
+
+            .btn {
+                padding: 7px 20px;
+                font-size: 15px;
+                font-weight: 400;
+                border-radius: 3px;
+            }
+
+            .cancel-request {
+                background-color: #c82333;
+
+                &:hover {
+                    background-color: #b2202f;
+                }
+            }
+
+            .already-borrowed {
+                background-color: #ebebeb;
+                color: #737373;
+                cursor: default;
+            }
+        }
+
+        .book-details {
+            width: 75%;
+
+            .author {
+                span {
+                    color: var(--green);
+                }
+            }
+
+            .hr {
+                height: 1px;
+                background-color: #d7d8e1;
+                margin: 10px 0;
+            }
+
+            .description {
+                text-align: justify;
+            }
+
+            .details-group {
+                display: flex;
+                justify-content: space-between;
+
+                p {
+                    text-align: center;
+
+                    span {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    } 
+}
+
+.related-books {
+    padding: 20px 10%;
+    color: var(--black);
+
+    h3 {
+        font-size: 25px;
+    }
+
+    .book {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 30px 0;
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: fit-content;
+            position: relative;
+
+            img {
+                width: 210px;
+                height: 270px;
+                border-radius: 2px;
+            }
+
+            p {
+                position: absolute;
+                z-index: -10;
+                font-size: 16px;
+                background-color: var(--green);
+                color: #fff;
+                width: 100%;
+                text-align: center;
+                padding: 5px 0;
+                
+
+                &:hover {
+                    background-color: var(--dark-color);
+                }
+            }
+
+            &:hover img {
+                opacity: 0.5;
+            }
+
+            &:hover p {
+                z-index: 10;
+            }
+        }
+        
+        .book-info {
+            text-align: center;
+
+            .book-name {
+                font-size: 16px;
+                color: #3b3b3b;
+                margin-top: 5px;
+            }
+
+            .author {
+                font-size: 16px;
+            }
+
+            .status {
+                font-size: 14px;
+            }
+
+            .available {
+                color: green;
+            }
+
+            .not-available {
+                color: red;
+            }
+        }
+
+        .cancel-request {
+            background-color: #c82333;
+
+            &:hover {
+                background-color: #b2202f;
+            }
+        }
+
+        .already-borrowed {
+            background-color: #ebebeb;
+            color: #737373;
+            cursor: default;
+        }
+    }
+
+    .swiper {
+        .swiper-button-next, .swiper-button-prev {
+            background-color: #fff;
+            border-radius: 2px;
+            padding: 22px;
+
+            &::after {
+                padding: 10px;
+                font-size: 25px;
+                font-weight: bold;
+                color: var(--black);
+            }
+            
+            &:hover {
+                &::after {
+                    color: #000;
+                }   
+            }
+        }
+    }
+}

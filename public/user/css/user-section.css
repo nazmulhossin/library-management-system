@@ -138,8 +138,6 @@
 .user-section .user-section-right .table-container table tbody td .btn-danger {
   padding: 5px 10px;
   background-color: #c82333;
-  font-size: 16px;
-  font-weight: 400;
 }
 .user-section .user-section-right .table-container table tbody td .btn-danger:hover {
   background-color: #b2202f;
@@ -150,46 +148,4 @@
 .user-section .user-section-right .table-container table tbody .table-content-center {
   display: flex;
   justify-content: center;
-}
-.user-section .user-section-right .table-container .pagination {
-  margin-top: 25px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  list-style: none;
-}
-.user-section .user-section-right .table-container .pagination .page-item {
-  margin: 0 4px;
-}
-.user-section .user-section-right .table-container .pagination .page-item .page-link {
-  color: var(--green);
-  padding: 8px 12px;
-  border: 1px solid #dee2e6;
-  text-decoration: none;
-  border-radius: 3px;
-  transition: all 0.3s ease;
-}
-.user-section .user-section-right .table-container .pagination .page-item .page-link:hover {
-  background-color: var(--green);
-  color: #fff;
-}
-.user-section .user-section-right .table-container .pagination .page-item.disabled .page-link {
-  color: #6c757d;
-  pointer-events: none;
-  background-color: #f8f9fa;
-  border-color: #dee2e6;
-}
-.user-section .user-section-right .table-container .pagination .page-item.active .page-link {
-  background-color: var(--dark-color);
-  border-color: var(--dark-color);
-  color: white;
-}
-.user-section .user-section-right .table-container .pagination .page-item:first-child .page-link,
-.user-section .user-section-right .table-container .pagination .page-item:last-child .page-link {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 27px;
 }

@@ -22,10 +22,12 @@
                         </p>
                     </div>
 
-                    @if($book->has_requested)
-                        <button class="borrow-request btn cancel-request" data-book-id="{{ $book->book_id }}">Cancel Request</button>
+                    @if($book->status == 'Requested')
+                        <button class="btn cancel-request" data-book-id="{{ $book->book_id }}">Cancel Request</button>
+                    @elseif($book->status == 'Borrowed')
+                        <button class="btn already-borrowed" data-book-id="{{ $book->book_id }}">Already Borrowed</button>
                     @else
-                        <button class="borrow-request btn" data-book-id="{{ $book->book_id }}">Request to Borrow</button>
+                        <button class="btn send-borrow-request" data-book-id="{{ $book->book_id }}">Request to Borrow</button>
                     @endif
                 </div>
             @endforeach
@@ -36,6 +38,6 @@
             {{ $books->links() }}
         </div>
     @else
-        <p>No books available.</p>
+        <p class="no-books-available">No books available.</p>
     @endif
 </section>

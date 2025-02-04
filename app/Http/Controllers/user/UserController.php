@@ -47,7 +47,9 @@ class UserController extends Controller
                 'books.title as book_title',
                 'books.author as book_author',
                 'books.cover_image as book_cover',
-                'borrow_requests.request_date')
+                'borrow_requests.request_date'
+            )
+            ->orderBy('borrow_requests.request_id', 'desc')
             ->paginate(5);
 
         return view('user/requested-book-list', compact('requestedBooks'));
@@ -61,13 +63,14 @@ class UserController extends Controller
         $borrowedBooks = DB::table('borrowed_books')
             ->join('books', 'borrowed_books.book_id', '=', 'books.book_id')
             ->where('borrowed_books.user_id', session('user')->user_id)
+            ->whereNull('borrowed_books.return_date')
             ->select(
                 'borrowed_books.*',
                 'books.title as book_title',
                 'books.author as book_author',
                 'books.cover_image as book_cover'
             )
-            ->orderBy('borrowed_books.borrow_date', 'desc')
+            ->orderBy('borrowed_books.borrow_id', 'desc')
             ->paginate(10);
 
         return view('user/borrowed-book-list', compact('borrowedBooks'));
@@ -86,6 +89,7 @@ class UserController extends Controller
                 'books.author as book_author',
                 'books.cover_image as book_cover'
             )
+            ->orderBy('borrowed_books.return_date', 'desc')
             ->paginate(10);
 
         return view('user/returned-book-list', compact('returnedBooks'));
@@ -95,17 +99,74 @@ class UserController extends Controller
     {
         $user_id = session('user')->user_id;
 
-        // Fetch books with pagination (10 books per page)
         $books = DB::table('books')
-            ->leftJoin('borrow_requests', function($join) use ($user_id) {
+            ->leftJoin('borrow_requests', function ($join) use ($user_id) {
                 $join->on('books.book_id', '=', 'borrow_requests.book_id')
                     ->where('borrow_requests.user_id', '=', $user_id);
             })
-            ->select('books.*', DB::raw('IF(borrow_requests.request_id IS NOT NULL, 1, 0) AS has_requested'))
-            ->paginate(10);
+            ->leftJoin('borrowed_books', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrowed_books.book_id')
+                    ->where('borrowed_books.user_id', '=', $user_id);
+            })
+            ->select(
+                'books.*',
+                DB::raw('IF(borrow_requests.request_id IS NOT NULL, "Requested", 
+                         IF(borrowed_books.borrow_id IS NOT NULL AND borrowed_books.return_date IS NULL, "Borrowed", "Available")) AS status')
+            )
+            ->paginate(20);
 
         // Pass the paginated books to the view
         return view('pages/all-books', compact('books'));
+    }
+
+    public function showCSEBooks()
+    {
+        $user_id = session('user')->user_id;
+
+        $books = DB::table('books')
+            ->leftJoin('borrow_requests', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrow_requests.book_id')
+                    ->where('borrow_requests.user_id', '=', $user_id);
+            })
+            ->leftJoin('borrowed_books', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrowed_books.book_id')
+                    ->where('borrowed_books.user_id', '=', $user_id);
+            })
+            ->where('category', 'CSE')
+            ->select(
+                'books.*',
+                DB::raw('IF(borrow_requests.request_id IS NOT NULL, "Requested", 
+                         IF(borrowed_books.borrow_id IS NOT NULL AND borrowed_books.return_date IS NULL, "Borrowed", "Available")) AS status')
+            )
+            ->paginate(20);
+
+        // Pass the paginated books to the view
+        return view('pages/cse-books', compact('books'));
+    }
+
+    public function showEEEBooks()
+    {
+        $user_id = session('user')->user_id;
+
+        $books = DB::table('books')
+            ->leftJoin('borrow_requests', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrow_requests.book_id')
+                    ->where('borrow_requests.user_id', '=', $user_id);
+            })
+            ->leftJoin('borrowed_books', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrowed_books.book_id')
+                    ->where('borrowed_books.user_id', '=', $user_id);
+            })
+            ->where('category', 'EEE')
+            ->select(
+                'books.*',
+                DB::raw('IF(borrow_requests.request_id IS NOT NULL, "Requested", 
+                         IF(borrowed_books.borrow_id IS NOT NULL AND borrowed_books.return_date IS NULL, "Borrowed", "Available")) AS status')
+            )
+            ->paginate(20);
+
+        // Pass the paginated books to the view
+        return view('pages/cse-books', compact('books'));
     }
 
     public function showProgrammingBooks()
@@ -113,13 +174,21 @@ class UserController extends Controller
         $user_id = session('user')->user_id;
 
         $books = DB::table('books')
-            ->leftJoin('borrow_requests', function($join) use ($user_id) {
+            ->leftJoin('borrow_requests', function ($join) use ($user_id) {
                 $join->on('books.book_id', '=', 'borrow_requests.book_id')
                     ->where('borrow_requests.user_id', '=', $user_id);
             })
-            ->where('books.category', 'Programming')
-            ->select('books.*', DB::raw('IF(borrow_requests.request_id IS NOT NULL, 1, 0) AS has_requested'))
-            ->paginate(10);
+            ->leftJoin('borrowed_books', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrowed_books.book_id')
+                    ->where('borrowed_books.user_id', '=', $user_id);
+            })
+            ->where('category', 'Programming')
+            ->select(
+                'books.*',
+                DB::raw('IF(borrow_requests.request_id IS NOT NULL, "Requested", 
+                         IF(borrowed_books.borrow_id IS NOT NULL AND borrowed_books.return_date IS NULL, "Borrowed", "Available")) AS status')
+            )
+            ->paginate(20);
 
         // Pass the paginated books to the view
         return view('pages/programming-books', compact('books'));
@@ -128,15 +197,24 @@ class UserController extends Controller
     public function showMachineLearningBooks()
     {
         $user_id = session('user')->user_id;
-        
+
         $books = DB::table('books')
-            ->leftJoin('borrow_requests', function($join) use ($user_id) {
+            ->leftJoin('borrow_requests', function ($join) use ($user_id) {
                 $join->on('books.book_id', '=', 'borrow_requests.book_id')
                     ->where('borrow_requests.user_id', '=', $user_id);
             })
+            ->leftJoin('borrowed_books', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrowed_books.book_id')
+                    ->where('borrowed_books.user_id', '=', $user_id);
+            })
             ->where('category', 'Machine Learning')
-            ->select('books.*', DB::raw('IF(borrow_requests.request_id IS NOT NULL, 1, 0) AS has_requested'))
-            ->paginate(10);
+            ->select(
+                'books.*',
+                DB::raw('IF(borrow_requests.request_id IS NOT NULL, "Requested", 
+                         IF(borrowed_books.borrow_id IS NOT NULL AND borrowed_books.return_date IS NULL, "Borrowed", "Available")) AS status')
+            )
+            ->paginate(20);
+
 
         return view('pages/machine-learning-books', compact('books'));
     }
@@ -144,29 +222,104 @@ class UserController extends Controller
     public function showMathematicsBooks()
     {
         $user_id = session('user')->user_id;
-        
+    
         $books = DB::table('books')
-            ->leftJoin('borrow_requests', function($join) use ($user_id) {
+            ->leftJoin('borrow_requests', function ($join) use ($user_id) {
                 $join->on('books.book_id', '=', 'borrow_requests.book_id')
                     ->where('borrow_requests.user_id', '=', $user_id);
             })
+            ->leftJoin('borrowed_books', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrowed_books.book_id')
+                    ->where('borrowed_books.user_id', '=', $user_id);
+            })
             ->where('category', 'Mathematics')
-            ->select('books.*', DB::raw('IF(borrow_requests.request_id IS NOT NULL, 1, 0) AS has_requested'))
-            ->paginate(10);
-
+            ->select(
+                'books.*',
+                DB::raw('IF(borrow_requests.request_id IS NOT NULL, "Requested", 
+                         IF(borrowed_books.borrow_id IS NOT NULL AND borrowed_books.return_date IS NULL, "Borrowed", "Available")) AS status')
+            )
+            ->paginate(20);
+    
         return view('pages/mathematics-books', compact('books'));
     }
-
+    
     public function showBookDetails($book_id)
     {
-        $book = DB::table('books')->where('book_id', $book_id)->first();
+        $user_id = session('user')->user_id;
+
+        // Fetch book details with requested/borrowed status
+        $book = DB::table('books')
+            ->leftJoin('borrow_requests', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrow_requests.book_id')
+                    ->where('borrow_requests.user_id', '=', $user_id);
+            })
+            ->leftJoin('borrowed_books', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrowed_books.book_id')
+                    ->where('borrowed_books.user_id', '=', $user_id);
+            })
+            ->where('books.book_id', $book_id)
+            ->select(
+                'books.*',
+                DB::raw('IF(borrow_requests.request_id IS NOT NULL, "Requested", 
+                        IF(borrowed_books.borrow_id IS NOT NULL AND borrowed_books.return_date IS NULL, "Borrowed", "Available")) AS status')
+            )
+            ->first();
 
         // If book not found, return 404
         if (!$book) {
             abort(404);
         }
 
-        return view('pages/book', compact('book'));
+        // Fetch books from the same category, excluding the current book
+        $sameCategoryBooks = DB::table('books')
+            ->leftJoin('borrow_requests', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrow_requests.book_id')
+                    ->where('borrow_requests.user_id', '=', $user_id);
+            })
+            ->leftJoin('borrowed_books', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrowed_books.book_id')
+                    ->where('borrowed_books.user_id', '=', $user_id);
+            })
+            ->where('category', $book->category)
+            ->where('books.book_id', '!=', $book_id)
+            ->select(
+                'books.*',
+                DB::raw('IF(borrow_requests.request_id IS NOT NULL, "Requested", 
+                         IF(borrowed_books.borrow_id IS NOT NULL AND borrowed_books.return_date IS NULL, "Borrowed", "Available")) AS status')
+            )
+            ->limit(10)
+            ->get();
+
+        return view('pages/book', compact('book', 'sameCategoryBooks'));
+    }
+
+    public function searchBooks(Request $request)
+    {
+        $query = $request->input('query');
+        $user_id = session('user')->user_id;
+        
+        // Fetch books matching title, author, category or description
+        $books = DB::table('books')
+            ->leftJoin('borrow_requests', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrow_requests.book_id')
+                    ->where('borrow_requests.user_id', '=', $user_id);
+            })
+            ->leftJoin('borrowed_books', function ($join) use ($user_id) {
+                $join->on('books.book_id', '=', 'borrowed_books.book_id')
+                    ->where('borrowed_books.user_id', '=', $user_id);
+            })
+            ->where('title', 'LIKE', "%{$query}%")
+            ->orWhere('author', 'LIKE', "%{$query}%")
+            ->orWhere('category', 'LIKE', "%{$query}%")
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->select(
+                'books.*',
+                DB::raw('IF(borrow_requests.request_id IS NOT NULL, "Requested", 
+                         IF(borrowed_books.borrow_id IS NOT NULL AND borrowed_books.return_date IS NULL, "Borrowed", "Available")) AS status')
+            )
+            ->paginate(20);
+
+        return view('pages/search-results', compact('books', 'query'));
     }
 
     public function borrowRequest(Request $request)

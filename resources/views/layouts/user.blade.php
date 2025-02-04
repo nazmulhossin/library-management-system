@@ -21,9 +21,9 @@
                 <a href="{{ route('all-books') }}" class="logo"> <img src="{{ asset('assets/img/full-logo.png') }}" alt=""></a>
             </div>
             
-            <form action="" class="search-form">
-                <input type="search" name="" placeholder="search here..." id="search-box">
-                <label for="search-box" class="fas fa-search"></label>
+            <form class="search-form" action="{{ route('search-books') }}" method="GET">
+                <input type="search" name="query" placeholder="Search books..." value="{{ request('query') }}" id="search-box">
+                <button type="submit"><i class="fas fa-search"></i></button>
             </form>
 
             <div class="user-profile">
@@ -46,19 +46,14 @@
         <div class="header-2">
             <nav class="navbar">
                 <a class="{{ Route::currentRouteName() == 'all-books' ? 'nav-active' : '' }}" href="{{ route('all-books') }}">All Books</a>
+                <a class="{{ Route::currentRouteName() == 'cse-books' ? 'nav-active' : '' }}" href="{{ route('cse-books') }}">CSE</a>
+                <a class="{{ Route::currentRouteName() == 'eee-books' ? 'nav-active' : '' }}" href="{{ route('eee-books') }}">EEE</a>
                 <a class="{{ Route::currentRouteName() == 'programming-books' ? 'nav-active' : '' }}" href="{{ route('programming-books') }}">Programming</a>
                 <a class="{{ Route::currentRouteName() == 'machine-learning-books' ? 'nav-active' : '' }}" href="{{ route('machine-learning-books') }}">Machine Learning</a>
                 <a class="{{ Route::currentRouteName() == 'mathematics-books' ? 'nav-active' : '' }}" href="{{ route('mathematics-books') }}">Mathematics</a>
             </nav>
         </div>
     </header>
-
-    <!-- bottom navbar for mobile  -->
-    <nav class="bottom-navbar">
-        <a href="#home" class="fas fa-home"></a>
-        <a href="#books" class="fas fa-book"></a>
-        <a href="#arrivals" class="fas fa-book-open"></a>
-    </nav>
 
     <main>@yield('main_content')</main>
 
