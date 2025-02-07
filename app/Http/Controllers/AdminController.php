@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -76,6 +76,16 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Borrow request not found.');
         }
 
+        // Check if the user has already borrowed 2 books
+        $borrowedCount = DB::table('borrowed_books')
+            ->where('user_id', $borrowRequest->user_id)
+            ->whereNull('return_date')
+            ->count();
+
+        if ($borrowedCount >= 2) {
+            return redirect()->back()->with('error', 'User cannot borrow more than 2 books at a time.');
+        }
+
         // Check if the book is available
         $book = DB::table('books')->where('book_id', $borrowRequest->book_id)->first();
         if (!$book || $book->available_copies < 1) {
@@ -147,7 +157,36 @@ class AdminController extends Controller
         // Validate the input
         $request->validate([
             'days' => 'required|integer|min:1'
-        ]);        
+        ]);
+        
+        // Get the user ID from the registration number
+        $user = DB::table('users')->where('registration_number', $reg_no)->first();
+
+        // Check if the user exists
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
+        // Check if the user has already borrowed 2 books
+        $borrowedCount = DB::table('borrowed_books')
+            ->where('user_id', $user->user_id)
+            ->whereNull('return_date')
+            ->count();
+
+        if ($borrowedCount >= 2) {
+            return redirect()->back()->with('error', 'User cannot borrow more than 2 books at a time.');
+        }
+
+        // Check if the user has already borrowed the same book
+        $alreadyBorrowed = DB::table('borrowed_books')
+            ->where('user_id', $user->user_id)
+            ->where('book_id', $book_id)
+            ->whereNull('return_date') // Ensures it checks only active borrowings
+            ->exists();
+
+        if ($alreadyBorrowed) {
+            return redirect()->back()->with('error', 'User has already borrowed this book.');
+        }
 
         // Check if the book exists and is available
         $book = DB::table('books')->where('book_id', $book_id)->first();

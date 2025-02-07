@@ -1,24 +1,28 @@
 @extends('layouts/auth')
-@section('title') Login @endsection
+@section('title') Reset Password @endsection
 @section('form_container')
     <div class="form-container">
         <div class="header">
-            <h2>Login</h2>
+            <h2>Reset Password</h2>
             <img src="{{asset('assets/img/full-logo.png')}}" alt="logo">
         </div>
 
-        <form action="{{ route('login') }}" method="POST">
+        <form action="{{ route('update-password') }}" method="POST">
             @csrf
-            <!-- Email -->
+            <input type="hidden" name="token" value="{{ $token }}">
             <div>
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="m@example.com" value="{{ old('email') }}" required>
             </div>
-            
-            <!-- Password -->
+        
             <div>
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter Password" required>
+            </div>
+
+            <div>
+                <label for="password_confirmation">Confirm Password</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Retype Password" required>
             </div>
 
             <!-- Display Error -->
@@ -28,13 +32,9 @@
 
             <!-- Login Button -->
             <div>
-                <button type="submit" class="submit-btn">Login</button>
+                <button type="submit" class="submit-btn">Reset Password</button>
             </div>
         </form>
-
-        <div class="additional-links">
-            <p><a href="{{ route('forgot-password') }}">Forgot Password?</a></p> <p>Don't have an account? <a href="{{ route('register-student') }}">Register</a></p>
-        </div>
     </div>
 @endsection
 

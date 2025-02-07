@@ -1,29 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\StudentRegistrationController;
-use App\Http\Controllers\Auth\TeacherRegistrationController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
-Route::get('', function () {
-    return view('auth/login');
-})->name('login');
+Route::get('', function () { return view('auth/login'); })->name('login');
 
 
 // Authentication Routes
 Route::view('/register-student', 'auth/register-student')->name('register-student');
-Route::post('/register-student', [StudentRegistrationController::class, 'store']);
+Route::post('/register-student', [AuthController::class, 'studentRegistration']);
 
 Route::view('/register-teacher', 'auth/register-teacher')->name('register-teacher');
-Route::post('/register-teacher', [TeacherRegistrationController::class, 'store']);
+Route::post('/register-teacher', [AuthController::class, 'teacherRegistration']);
 
 Route::view('/registration-pending', 'auth/registration-pending')->name('registration-pending');
 
+Route::get('/forgot-password', function () { return view('auth/forgot-password'); })->name('forgot-password');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('send-reset-link');
+Route::get('/password-reset-msg', function () { return view('auth/reset-password-msg'); })->name('password-reset-msg');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password-reset');
+Route::post('/update-password', [AuthController::class, 'resetPassword'])->name('update-password');
+
 Route::view('/login', 'auth/login')->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // User Routes

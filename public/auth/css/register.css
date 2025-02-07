@@ -49,15 +49,3 @@
 .form-container form .submit-btn:hover {
   background-color: #1ab854;
 }
-.form-container .additional-links {
-  display: flex;
-  justify-content: space-between;
-  padding: 0px 40px 25px;
-  color: #2c3345;
-}
-.form-container .additional-links a {
-  font-weight: 500;
-}
-.form-container .additional-links a:hover {
-  color: rgba(0, 0, 255, 0.8352941176);
-}

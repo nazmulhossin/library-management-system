@@ -11,13 +11,13 @@
                     <!-- Book ID -->
                     <div>
                         <label for="book_id">Book ID <span>*</span></label>
-                        <input type="text" id="book_id" name="book_id" placeholder="Enter Book ID" required>
+                        <input type="text" id="book_id" name="book_id" placeholder="Enter Book ID" value="{{ old('book_id') }}" required>
                     </div>
 
                     <!-- Book ID -->
                     <div>
                         <label for="reg_no">Member's Reg. No: <span>*</span></label>
-                        <input type="text" id="reg_no" name="reg_no" placeholder="Enter Member's Reg. No" required>
+                        <input type="text" id="reg_no" name="reg_no" placeholder="Enter Member's Reg. No" value="{{ old('reg_no') }}" required>
                     </div>
                 </div>
     
@@ -63,6 +63,13 @@
                 </tbody>
             </table>
         </div>
+
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
     </div>
 @endsection
 
