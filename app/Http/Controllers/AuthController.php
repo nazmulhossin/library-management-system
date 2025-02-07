@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -85,6 +86,22 @@ class AuthController extends Controller
             ]);
 
             return redirect()->route('registration-pending');
+        }
+    }
+
+    // If a user already login then redirect his/her
+    public function checkLogin()
+    {
+        // Check if the authenticated user is an admin
+        if (session()->has('user')) {
+            // Redirect based on user type
+            if (session('user')->user_type === 'Admin') {
+                return redirect()->route('admin/dashboard');
+            } else {
+                return redirect()->route('all-books');
+            }
+        } else {
+            return view('auth/login');
         }
     }
 
@@ -181,7 +198,7 @@ class AuthController extends Controller
 
         // Update user password
         DB::table('users')->where('email', $request->email)->update([
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
         ]);
 
         // Delete the reset request

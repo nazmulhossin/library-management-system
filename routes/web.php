@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\UserMiddleware;
 
-Route::get('', function () { return view('auth/login'); })->name('login');
+Route::get('', [AuthController::class, 'checkLogin']);
 
 
 // Authentication Routes
@@ -17,40 +19,43 @@ Route::post('/register-teacher', [AuthController::class, 'teacherRegistration'])
 
 Route::view('/registration-pending', 'auth/registration-pending')->name('registration-pending');
 
+Route::get('/login', [AuthController::class, 'checkLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 Route::get('/forgot-password', function () { return view('auth/forgot-password'); })->name('forgot-password');
 Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('send-reset-link');
 Route::get('/password-reset-msg', function () { return view('auth/reset-password-msg'); })->name('password-reset-msg');
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password-reset');
 Route::post('/update-password', [AuthController::class, 'resetPassword'])->name('update-password');
 
-Route::view('/login', 'auth/login')->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // User Routes
-Route::get('/all-books', [UserController::class, 'showAllBooks'])->name('all-books');
-Route::get('/cse-books', [UserController::class, 'showCSEBooks'])->name('cse-books');
-Route::get('/eee-books', [UserController::class, 'showEEEBooks'])->name('eee-books');
-Route::get('/programming-books', [UserController::class, 'showProgrammingBooks'])->name('programming-books');
-Route::get('/machine-learning-books', [UserController::class, 'showMachineLearningBooks'])->name('machine-learning-books');
-Route::get('/mathematics-books', [UserController::class, 'showMathematicsBooks'])->name('mathematics-books');
-Route::get('/search-books', [UserController::class, 'searchBooks'])->name('search-books');
+Route::get('/all-books', [UserController::class, 'showAllBooks'])->name('all-books')->middleware([UserMiddleware::class]);
+Route::get('/cse-books', [UserController::class, 'showCSEBooks'])->name('cse-books')->middleware([UserMiddleware::class]);
+Route::get('/eee-books', [UserController::class, 'showEEEBooks'])->name('eee-books')->middleware([UserMiddleware::class]);
+Route::get('/programming-books', [UserController::class, 'showProgrammingBooks'])->name('programming-books')->middleware([UserMiddleware::class]);
+Route::get('/machine-learning-books', [UserController::class, 'showMachineLearningBooks'])->name('machine-learning-books')->middleware([UserMiddleware::class]);
+Route::get('/mathematics-books', [UserController::class, 'showMathematicsBooks'])->name('mathematics-books')->middleware([UserMiddleware::class]);
+Route::get('/search-books', [UserController::class, 'searchBooks'])->name('search-books')->middleware([UserMiddleware::class]);
 
-Route::post('/borrow-request', [UserController::class, 'borrowRequest']);
-Route::post('/cancel-borrow-request', [UserController::class, 'cancelRequest']);
-Route::delete('/cancel-borrow-request-with-id/{book_id}', [UserController::class, 'cancelRequestWithID'])->name('cancel-borrow-request-with-id');
+Route::post('/borrow-request', [UserController::class, 'borrowRequest'])->middleware([UserMiddleware::class]);
+Route::post('/cancel-borrow-request', [UserController::class, 'cancelRequest'])->middleware([UserMiddleware::class]);
+Route::delete('/cancel-borrow-request-with-id/{book_id}', [UserController::class, 'cancelRequestWithID'])->name('cancel-borrow-request-with-id')->middleware([UserMiddleware::class]);
 
-Route::get('/book/{book_id}', [UserController::class, 'showBookDetails'])->name('show-book-details');
+Route::get('/book/{book_id}', [UserController::class, 'showBookDetails'])->name('show-book-details')->middleware([UserMiddleware::class]);
 
-Route::get('/my-profile', function () { return view('user/my-profile'); })->name('my-profile');
-Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password');
-Route::get('/my-requested-book-list', [UserController::class, 'showRequestedBookList'])->name('my-requested-book-list');
-Route::get('/my-borrowed-book-list', [UserController::class, 'showBorrowedBookList'])->name('my-borrowed-book-list');
-Route::get('/my-returned-book-list', [UserController::class, 'showReturnedBookList'])->name('my-returned-book-list');
+Route::get('/my-profile', function () { return view('user/my-profile'); })->name('my-profile')->middleware([UserMiddleware::class]);
+Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password')->middleware([UserMiddleware::class]);
+Route::get('/my-requested-book-list', [UserController::class, 'showRequestedBookList'])->name('my-requested-book-list')->middleware([UserMiddleware::class]);
+Route::get('/my-borrowed-book-list', [UserController::class, 'showBorrowedBookList'])->name('my-borrowed-book-list')->middleware([UserMiddleware::class]);
+Route::get('/my-returned-book-list', [UserController::class, 'showReturnedBookList'])->name('my-returned-book-list')->middleware([UserMiddleware::class]);
+
+
 
 // Routes for admin pannel
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin/dashboard');
 
     Route::get('/request-list', [AdminController::class, 'showRequestList'])->name('admin/request-list');
@@ -81,8 +86,3 @@ Route::prefix('admin')->group(function () {
     Route::get('/settings', function () { return view('admin/settings'); }) -> name('admin/settings');
     Route::post('/change-password', [AdminController::class, 'changePassword']) -> name('admin/change-password');
 });
-
-// Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-//     Route::get('/user/approve/{id}', [AdminController::class, 'approve'])->name('admin.user.approve');
-//     Route::get('/user/decline/{id}', [AdminController::class, 'decline'])->name('admin.user.decline');
-// });
