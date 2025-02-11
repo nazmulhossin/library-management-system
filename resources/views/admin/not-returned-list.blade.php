@@ -38,12 +38,13 @@
                                 </td>
                                 <td>
                                     <strong>Name:</strong> {{ $book->user_name}} <br> 
-                                    <strong>Reg. No:</strong> {{ $book->user_reg_number }}
+                                    <strong>Reg. No:</strong> {{ $book->user_reg_number }} <br> 
+                                    <strong>Phone:</strong> {{ $book->phone_number }}
                                 </td>
                                 <td>{{ \Carbon\Carbon::parse($book->borrow_date)->format('M d, Y') }}</td>
                                 <td>{{ \Carbon\Carbon::parse($book->due_date)->format('M d, Y') }}</td>
                                 <td class="text-danger">
-                                    {{ \Carbon\Carbon::parse($book->due_date)->diffInDays(now()) }} days overdue
+                                    {{ floor(\Carbon\Carbon::parse($book->due_date)->diffInDays(\Carbon\Carbon::today())) }} days overdue
                                 </td>
                             </tr>
                         @endforeach

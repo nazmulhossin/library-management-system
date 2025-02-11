@@ -80,6 +80,9 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::post('/add-book', [AdminController::class, 'addBook'])->name('admin/add-book');
 
     Route::get('/book-list', [AdminController::class, 'showBooks'])->name('admin/book-list');
+    Route::get('/edit-book/{book_id}', [AdminController::class, 'editBook'])->name('admin/edit-book');
+    Route::put('/update-book/{book_id}', [AdminController::class, 'updateBook'])->name('admin/update-book');
+    Route::get('/delete-book/{book_id}', [AdminController::class, 'deleteBook'])->name('admin/delete-book');
     
     Route::get('/pending-members', [AdminController::class, 'showPendingUsers'])->name('admin/pending-members');
     Route::get('/user-approve/{id}', [AdminController::class, 'approveMember'])->name('admin/user-approve');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -32,7 +33,7 @@ class AdminController extends Controller
         // Count of books not returned
         $notReturnedBooks = DB::table('borrowed_books')
             ->whereNull('return_date')
-            ->where('due_date', '<', now()) // Overdue books
+            ->where('due_date', '<', Carbon::today()) // Overdue books
             ->count();
 
         return view('admin/dashboard', compact('totalUsers', 'pendingUsers', 'totalBooks', 'totalRequests', 'notReturnedBooks'));
@@ -262,20 +263,19 @@ class AdminController extends Controller
 
     public function showNotReturnedBooks()
     {
-        $today = Carbon::today();
-
         $notReturnedBooks = DB::table('borrowed_books')
             ->join('books', 'borrowed_books.book_id', '=', 'books.book_id')
             ->join('users', 'borrowed_books.user_id', '=', 'users.user_id')
             ->whereNull('borrowed_books.return_date')
-            ->where('borrowed_books.due_date', '<', $today)
+            ->where('borrowed_books.due_date', '<', Carbon::today())
             ->select(
                 'borrowed_books.*',
                 'books.title as book_title',
                 'books.author as book_author',
                 'books.cover_image as book_cover',
                 'users.name as user_name',
-                'users.registration_number as user_reg_number'
+                'users.registration_number as user_reg_number',
+                'users.phone_number as phone_number'
             )
             ->orderBy('borrowed_books.due_date', 'asc') // Oldest due date first
             ->get();
@@ -350,6 +350,94 @@ class AdminController extends Controller
     {
         $books = DB::table('books')->orderBy('book_id', 'desc')->get();
         return view('admin/books', compact('books'));
+    }
+
+    public function editBook($book_id)
+    {
+        $book = DB::table('books')->where('book_id', $book_id)->first();
+        
+        if (!$book) {
+            return redirect()->back()->with('error', 'Book not found.');
+        }
+    
+        return view('admin/edit-book', compact('book'));
+    }
+    
+    public function updateBook(Request $request, $book_id)
+    {
+        // Validate the request
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'author' => 'required|string|max:255',
+            'publisher' => 'nullable|string|max:255',
+            'publication_date' => 'nullable|date',
+            'edition' => 'nullable|string|max:255',
+            'isbn' => 'nullable|string|max:20',
+            'pages' => 'nullable|integer|min:1',
+            'category' => 'required|string',
+            'total_copies' => 'required|integer|min:1',
+            'cover_image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Max 2MB file
+        ]);
+
+        // Retrieve existing book data
+        $book = DB::table('books')->where('book_id', $book_id)->first();
+
+        if (!$book) {
+            return redirect()->back()->with('error', 'Book not found.');
+        }
+
+        // Prepare data for update
+        $updateData = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'author' => $request->author,
+            'publisher' => $request->publisher,
+            'publication_date' => $request->publication_date,
+            'edition' => $request->edition,
+            'isbn' => $request->isbn,
+            'pages' => $request->pages,
+            'category' => $request->category,
+            'total_copies' => $request->total_copies,
+            'updated_at' => now(),
+        ];
+
+        // Handle cover image upload
+        if ($request->hasFile('cover_image')) {
+            // Delete old cover image if exists
+            if ($book->cover_image) {
+                Storage::delete('public/' . $book->cover_image);
+            }
+
+            // Store new cover image
+            $filePath = $request->file('cover_image')->store('books', 'public');
+            $updateData['cover_image'] = $filePath;
+        }
+
+        // Update book in the database using Query Builder
+        DB::table('books')->where('book_id', $book_id)->update($updateData);
+
+        // Redirect with success message
+        return redirect()->route('admin/book-list')->with('success', 'Book updated successfully.');
+    }
+    
+    public function deleteBook($book_id)
+    {
+        // Check if the book is borrowed
+        $isBorrowed = DB::table('borrowed_books')->where('book_id', $book_id)->whereNull('return_date')->exists();
+    
+        if ($isBorrowed) {
+            return redirect()->back()->with('error', 'This book cannot be deleted as it is currently borrowed.');
+        }
+    
+        // Delete the book if it's not borrowed
+        $deleted = DB::table('books')->where('book_id', $book_id)->delete();
+    
+        if (!$deleted) {
+            return redirect()->back()->with('error', 'Failed to delete book.');
+        }
+    
+        return redirect()->back()->with('success', 'Book deleted successfully.');
     }
 
     public function showPendingUsers()

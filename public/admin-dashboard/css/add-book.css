@@ -45,6 +45,7 @@
 .form-container form .submit-btn-container {
   display: flex;
   justify-content: right;
+  gap: 10px;
 }
 .form-container form .submit-btn-container .btn.btn-success {
   padding: 7px 25px;
