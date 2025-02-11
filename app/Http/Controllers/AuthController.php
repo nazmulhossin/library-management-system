@@ -47,7 +47,7 @@ class AuthController extends Controller
                 'updated_at' => now(),
             ]);
 
-            return redirect()->route('registration-pending');
+            return $this->sendVerificationEmail($request->email);
         }
     }
 
@@ -85,8 +85,51 @@ class AuthController extends Controller
                 'updated_at' => now(),
             ]);
 
-            return redirect()->route('registration-pending');
+            return $this->sendVerificationEmail($request->email);
         }
+    }
+
+    // Send Verification Email
+    public function sendVerificationEmail($email)
+    {
+        // Generate verify token
+        $token = Str::random(60);
+
+        // Delete existing reset requests for this email
+        DB::table('email_verification_tokens')->where('email', $email)->delete();
+
+        // Insert new reset token
+        DB::table('email_verification_tokens')->insert([
+            'email' => $email,
+            'token' => $token,
+            'created_at' => Carbon::now(),
+        ]);
+
+         // Send email with verification link
+        Mail::send('emails/email-verification', ['token' => $token], function ($message) use ($email) {
+            $message->to($email);
+            $message->subject('Verify Your Email');
+        });
+
+        return redirect()->route('verification-email-msg', ['email' => $email]);
+    }
+
+    // Verify Email
+    public function verifyEmail($token)
+    {
+        $record = DB::table('email_verification_tokens')->where('token', $token)->first();
+
+        // Mark email as verified
+        DB::table('users')
+            ->where('email', $record->email)
+            ->update([
+                'email_verified_at' => now(),
+            ]);
+
+        // Delete token
+        DB::table('email_verification_tokens')->where('token', $token)->delete();
+
+        return redirect()->route('registration-pending');
     }
 
     // If a user already login then redirect his/her
@@ -118,8 +161,13 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            if ($user->status == 'Pending')
+            if (is_null($user->email_verified_at)) {
+                return $this->sendVerificationEmail($request->email);
+            }
+            
+            if ($user->status === 'Pending') {
                 return redirect()->route('registration-pending');
+            }
 
             Session::put('user', $user); // Store user information in session
 

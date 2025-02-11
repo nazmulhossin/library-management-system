@@ -159,7 +159,7 @@
   <tr>
     <td style="padding-right: 0px;padding-left: 0px;" align="center">
       
-      <img align="center" border="0" src=" {{ asset('auth/img/security-image.png') }}" alt="security-image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 10%;max-width: 58px;" width="58"/>
+      <img align="center" border="0" src=" {{ asset('auth/img/email-image.png') }}" alt="email-image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 10%;max-width: 58px;" width="58"/>
       
     </td>
   </tr>
@@ -176,7 +176,7 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:0px 10px 30px;font-family:'Lato',sans-serif;" align="left">
         
   <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%; text-align: center; margin: 0px;"><span style="font-size: 28px; line-height: 39.2px; color: #ffffff; font-family: Lato, sans-serif;">Please reset your password </span></p>
+    <p style="font-size: 14px; line-height: 140%; text-align: center; margin: 0px;"><span style="font-size: 28px; line-height: 39.2px; color: #ffffff; font-family: Lato, sans-serif;">Please verify your email </span></p>
   </div>
 
       </td>
@@ -209,11 +209,9 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:40px 40px 30px;font-family:'Lato',sans-serif;" align="left">
         
   <div style="font-size: 14px; color: #441a1a; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%; margin: 0px;"><span style="font-size: 18px; line-height: 25.2px; color: #666666;">Hello,</span></p>
+    <p style="font-size: 14px; line-height: 140%; margin: 0px;"><span style="font-size: 18px; line-height: 25.2px; color: #666666;">Dear User,</span></p>
 <p style="font-size: 14px; line-height: 140%; margin: 0px;">&nbsp;</p>
-<p style="font-size: 14px; line-height: 140%; margin: 0px;"><span style="font-size: 18px; line-height: 25.2px; color: #666666;">We have sent you this email in response to your request to reset your password for the <span style="color: #16a34a; line-height: 25.2px;">CSE Seminar Library, IU</span>.</span></p>
-<p style="font-size: 14px; line-height: 140%; margin: 0px;">&nbsp;</p>
-<p style="font-size: 14px; line-height: 140%; margin: 0px;"><span style="font-size: 18px; line-height: 25.2px; color: #666666;">To reset your password, please follow the link below: </span></p>
+<p style="font-size: 14px; line-height: 140%; margin: 0px;"><span style="font-size: 18px; line-height: 25.2px; color: #666666;">Thank you for registering with us! Please verify your email address by clicking the button below:</span></p>
   </div>
 
       </td>
@@ -228,7 +226,7 @@
         
 
 <div align="center">
-    <a href="{{ route('password-reset', ['token' => $token]) }}" target="_blank" class="v-button" style="box-sizing: border-box; display: inline-block; text-decoration: none; text-size-adjust: none; text-align: center; color: rgb(255, 255, 255); background: rgb(22, 163, 74); border-radius: 1px; width: auto; max-width: 100%; word-break: break-word; overflow-wrap: break-word; font-size: 14px; line-height: inherit;"><span style="display:block;padding:15px 40px;line-height:120%;"><span style="font-size: 18px; line-height: 21.6px;">Reset Password</span></span>
+    <a href="{{ route('verify-email', ['token' => $token]) }}" target="_blank" class="v-button" style="box-sizing: border-box; display: inline-block; text-decoration: none; text-size-adjust: none; text-align: center; color: rgb(255, 255, 255); background: rgb(22, 163, 74); border-radius: 1px; width: auto; max-width: 100%; word-break: break-word; overflow-wrap: break-word; font-size: 14px; line-height: inherit;"><span style="display:block;padding:15px 40px;line-height:120%;"><span style="font-size: 18px; line-height: 21.6px;">Verify Email</span></span>
     </a>
 </div>
 
@@ -243,7 +241,7 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:40px 40px 30px;font-family:'Lato',sans-serif;" align="left">
         
   <div style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%; margin: 0px;"><span style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span style="font-size: 16px; line-height: 22.4px;">Please ignore this email if you did not request a password change.</span></em></span><br /><span style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span style="font-size: 16px; line-height: 22.4px;">&nbsp;</span></em></span></p>
+    <p style="font-size: 14px; line-height: 140%; margin: 0px;"><span style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span style="font-size: 16px; line-height: 22.4px;">Please ignore this email if you did not create this account.</span></em></span><br /><span style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span style="font-size: 16px; line-height: 22.4px;">&nbsp;</span></em></span></p>
   </div>
 
       </td>

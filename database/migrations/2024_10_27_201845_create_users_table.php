@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('image');
             $table->enum('user_type', ['Admin', 'Teacher', 'Student']);
             $table->enum('status', ['Pending', 'Approved'])->default('Pending');
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps(); // This will automatically add created_at and updated_at
 
             // Adding indexes for better performance

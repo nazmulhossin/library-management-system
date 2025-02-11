@@ -17,6 +17,10 @@ Route::post('/register-student', [AuthController::class, 'studentRegistration'])
 Route::view('/register-teacher', 'auth/register-teacher')->name('register-teacher');
 Route::post('/register-teacher', [AuthController::class, 'teacherRegistration']);
 
+Route::get('/verification-email-message/{email}', function ($email) { return view('auth.verification-email-msg', ['email' => $email]); })->name('verification-email-msg');
+Route::get('/verify-email/{token}', [AuthController::class, 'verifyEmail'])->name('verify-email');
+Route::get('/resend-verification-email/{email}', [AuthController::class, 'sendVerificationEmail'])->name('resend-verification-email');
+
 Route::view('/registration-pending', 'auth/registration-pending')->name('registration-pending');
 
 Route::get('/login', [AuthController::class, 'checkLogin'])->name('login');

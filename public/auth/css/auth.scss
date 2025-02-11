@@ -171,9 +171,10 @@ body {
         }
     }
 
-    .password-reset-msg {
+    .password-reset-msg, .email-verification-msg {
         color: #2c3345;
-        padding: 25px 40px;
+        padding: 20px 40px;
         text-align: justify;
+        line-height: 1.5;
     }
 }

@@ -76,14 +76,14 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Borrow request not found.');
         }
 
-        // Check if the user has already borrowed 2 books
+        // Check if the user has already borrowed 5 books
         $borrowedCount = DB::table('borrowed_books')
             ->where('user_id', $borrowRequest->user_id)
             ->whereNull('return_date')
             ->count();
 
-        if ($borrowedCount >= 2) {
-            return redirect()->back()->with('error', 'User cannot borrow more than 2 books at a time.');
+        if ($borrowedCount >= 5) {
+            return redirect()->back()->with('error', 'User cannot borrow more than 5 books at a time.');
         }
 
         // Check if the book is available
@@ -167,14 +167,14 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'User not found.');
         }
 
-        // Check if the user has already borrowed 2 books
+        // Check if the user has already borrowed 5 books
         $borrowedCount = DB::table('borrowed_books')
             ->where('user_id', $user->user_id)
             ->whereNull('return_date')
             ->count();
 
-        if ($borrowedCount >= 2) {
-            return redirect()->back()->with('error', 'User cannot borrow more than 2 books at a time.');
+        if ($borrowedCount >= 5) {
+            return redirect()->back()->with('error', 'User cannot borrow more than 5 books at a time.');
         }
 
         // Check if the user has already borrowed the same book
