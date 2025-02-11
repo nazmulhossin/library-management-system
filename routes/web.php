@@ -51,7 +51,7 @@ Route::delete('/cancel-borrow-request-with-id/{book_id}', [UserController::class
 Route::get('/book/{book_id}', [UserController::class, 'showBookDetails'])->name('show-book-details')->middleware([UserMiddleware::class]);
 
 Route::get('/my-profile', function () { return view('user/my-profile'); })->name('my-profile')->middleware([UserMiddleware::class]);
-Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password')->middleware([UserMiddleware::class]);
+Route::post('/change-password', [UserController::class, 'changePassword'])->middleware([UserMiddleware::class]);
 Route::get('/my-requested-book-list', [UserController::class, 'showRequestedBookList'])->name('my-requested-book-list')->middleware([UserMiddleware::class]);
 Route::get('/my-borrowed-book-list', [UserController::class, 'showBorrowedBookList'])->name('my-borrowed-book-list')->middleware([UserMiddleware::class]);
 Route::get('/my-returned-book-list', [UserController::class, 'showReturnedBookList'])->name('my-returned-book-list')->middleware([UserMiddleware::class]);

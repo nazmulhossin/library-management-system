@@ -13,17 +13,30 @@ class UserController extends Controller
 {
     public function changePassword(Request $request)
     {
-        // Validate the input
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|min:8|confirmed', // Confirmed checks if new_password == confirm_password
-        ]);
+            // Manually check old password
+        if (!$request->has('old_password') || empty($request->old_password)) {
+            return response()->json(['errors' => ['The old password is required.']], 422);
+        }
+
+        // Manually check new password (min length 8)
+        if (!$request->has('new_password') || empty($request->new_password)) {
+            return response()->json(['errors' => ['The new password is required.']], 422);
+        }
+
+        if (strlen($request->new_password) < 8) {
+            return response()->json(['errors' => ['The new password must be at least 8 characters.']], 422);
+        }
+
+        // Manually check if the new passwords match (confirmed)
+        if (!$request->has('new_password_confirmation') || $request->new_password !== $request->new_password_confirmation) {
+            return response()->json(['errors' => ['The new password confirmation does not match.']], 422);
+        }
 
         $user = DB::table('users')->where('user_id', session('user')->user_id)->first();
 
         // Check if the old password matches
         if (!Hash::check($request->old_password, $user->password)) {
-            return back()->withErrors(['old_password' => 'The old password is incorrect.']);
+            return response()->json(['errors' => ['The old password is incorrect.']], 422);
         }
 
         // Update the password
@@ -34,7 +47,7 @@ class UserController extends Controller
                 'updated_at' => now()
             ]);
 
-        return redirect()->back()->with('success', 'Password changed successfully.');
+        return response()->json(['success' => 'Password changed successfully.']);
     }
 
     public function showRequestedBookList()
@@ -377,7 +390,7 @@ class UserController extends Controller
                 ->where('book_id', $book_id)
                 ->delete();
 
-                return redirect()->back()->with('success', 'Borrow request canceled successfully.');
+            return redirect()->back()->with('success', 'Borrow request canceled successfully.');
         }
     }
 }

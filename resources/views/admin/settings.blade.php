@@ -7,7 +7,7 @@
         <h3>Change Password</h3>
         <hr>
         <div class="change-password">
-            <form method="POST" action="{{ route('admin/change-password') }}">
+            <form id="change-password-form">
                 @csrf
                 <!-- Old Password -->
                 <div>
@@ -27,18 +27,12 @@
                     <input type="password" id="new_password_confirmation" name="new_password_confirmation" placeholder="Retype Password" required>
                 </div>
 
-                <!-- Display Error -->
-                @if ($errors->any())
-                    <div class="error-msg">{{ $errors->all()[0] }}</div>
-                @endif
-
-                @if (session('success'))
-                    <div class="success-msg">{{ session('success') }}</div>
-                @endif
+                <!-- Display Messages -->
+                <div id="error-msg" class="error-msg"></div>
+                <div id="success-msg" class="success-msg"></div>
                 
-                <!-- Register Button -->
                 <div>
-                    <button type="submit" class="submit-btn">Save</button>
+                    <button type="submit" class="btn btn-success">Save</button>
                 </div>
             </form>
         </div>

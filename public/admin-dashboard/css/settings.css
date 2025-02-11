@@ -27,16 +27,8 @@
 .change-password form .success-msg {
   color: green;
 }
-.change-password form .submit-btn {
-  background-color: #16A34A;
-  color: #fff;
-  padding: 12px;
-  width: 15%;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-}
-.change-password form .submit-btn:hover {
-  background-color: #159544;
+.change-password form .btn-success {
+  padding: 10px;
+  width: 12%;
+  font-size: 16px;
 }

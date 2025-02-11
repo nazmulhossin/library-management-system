@@ -26,65 +26,95 @@ window.addEventListener('DOMContentLoaded', event => {
             localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
         });
     }
+});
 
-    // AJAX for handling manually book assignment
-    document.getElementById("assignBookForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-    
-        let bookId = document.getElementById("book_id").value;
-        let regNo = document.getElementById("reg_no").value;
-        let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    
-        fetch('/admin/get-book-user-info', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
-            },
-            body: JSON.stringify({ book_id: bookId, reg_no: regNo })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                document.getElementById("error-msg").textContent = data.error;
-                document.getElementById("error-msg").style.display = "block";
-                document.getElementById("info-container").style.display = "none";
-            } else {
-                document.getElementById("error-msg").style.display = "none";
-                document.getElementById("info-container").style.display = "block";
-    
-                // Show book and user details
-                document.getElementById("book-cover").src = data.book.cover_image;
-                document.getElementById("book-id").textContent = data.book.book_id;
-                document.getElementById("book-title").textContent = data.book.title;
-                document.getElementById("book-author").textContent = data.book.author;
-                document.getElementById("book-copies").textContent = data.book.available_copies;
+// AJAX for handling manually book assignment
+document.getElementById("assignBookForm")?.addEventListener("submit", function(e) {
+    e.preventDefault();
 
-                document.getElementById("user-image").src = data.user.image;
-                document.getElementById("user-name").textContent = data.user.name;
-                document.getElementById("user-regno").textContent = data.user.reg_no;
+    let bookId = document.getElementById("book_id").value;
+    let regNo = document.getElementById("reg_no").value;
+    let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                document.getElementById("confirm-form").action = "{{ route('admin/assign-book-manually/'" + data.book.book_id + "/" + data.user.reg_no + ") }}";
-            }
-        })
-        .catch(error => {
-            console.log("Error:", error);
-            errorMsg.textContent = "An error occurred while fetching data.";
-            errorMsg.style.display = "block";
-        });
-    });
+    fetch('/admin/get-book-user-info', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({ book_id: bookId, reg_no: regNo })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            document.getElementById("error-msg").textContent = data.error;
+            document.getElementById("error-msg").style.display = "block";
+            document.getElementById("info-container").style.display = "none";
+        } else {
+            document.getElementById("error-msg").style.display = "none";
+            document.getElementById("info-container").style.display = "block";
 
-    document.getElementById("assignBook").addEventListener("click", function () {
-        let bookId = document.getElementById("book-id").textContent.trim();
-        let regNo = document.getElementById("user-regno").textContent.trim();
-        let form = document.getElementById("confirm-form");
-    
-        if (!bookId || !regNo) {
-            alert("Book ID or User Registration Number is missing!");
-            return;
+            // Show book and user details
+            document.getElementById("book-cover").src = data.book.cover_image;
+            document.getElementById("book-id").textContent = data.book.book_id;
+            document.getElementById("book-title").textContent = data.book.title;
+            document.getElementById("book-author").textContent = data.book.author;
+            document.getElementById("book-copies").textContent = data.book.available_copies;
+
+            document.getElementById("user-image").src = data.user.image;
+            document.getElementById("user-name").textContent = data.user.name;
+            document.getElementById("user-regno").textContent = data.user.reg_no;
+
+            document.getElementById("confirm-form").action = "{{ route('admin/assign-book-manually/'" + data.book.book_id + "/" + data.user.reg_no + ") }}";
         }
-    
-        // Set the form action dynamically
-        form.action = `/admin/assign-book-manually/${bookId}/${regNo}`;
+    })
+    .catch(error => {
+        console.log("Error:", error);
+        errorMsg.textContent = "An error occurred while fetching data.";
+        errorMsg.style.display = "block";
     });
+});
+
+document.getElementById("assignBook")?.addEventListener("click", function () {
+    let bookId = document.getElementById("book-id").textContent.trim();
+    let regNo = document.getElementById("user-regno").textContent.trim();
+    let form = document.getElementById("confirm-form");
+
+    if (!bookId || !regNo) {
+        alert("Book ID or User Registration Number is missing!");
+        return;
+    }
+
+    // Set the form action dynamically
+    form.action = `/admin/assign-book-manually/${bookId}/${regNo}`;
+});
+
+
+// Change user password
+document.getElementById("change-password-form")?.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  let formData = new FormData(this); // Get form data
+
+  fetch("/admin/change-password", {
+      method: "POST",
+      body: formData,
+      headers: {
+          "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+      }
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          document.getElementById("success-msg").innerText = data.success;
+          document.getElementById("error-msg").innerText = "";
+
+          // Clear input fields after successful password change
+          document.getElementById("change-password-form").reset();
+      } else if (data.errors) {
+          document.getElementById("error-msg").innerText = data.errors[0]; // Show first error
+          document.getElementById("success-msg").innerText = "";
+      }
+  })
+  .catch(error => console.log("Error:", error));
 });

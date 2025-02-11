@@ -121,3 +121,32 @@ var swiper = new Swiper(".books-slider", {
     },
   },
 });
+
+// Change user password
+document.getElementById("change-password-form")?.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  let formData = new FormData(this); // Get form data
+
+  fetch("/change-password", {
+      method: "POST",
+      body: formData,
+      headers: {
+          "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+      }
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          document.getElementById("success-msg").innerText = data.success;
+          document.getElementById("error-msg").innerText = "";
+
+          // Clear input fields after successful password change
+          document.getElementById("change-password-form").reset();
+      } else if (data.errors) {
+          document.getElementById("error-msg").innerText = data.errors[0]; // Show first error
+          document.getElementById("success-msg").innerText = "";
+      }
+  })
+  .catch(error => console.log("Error:", error));
+});
