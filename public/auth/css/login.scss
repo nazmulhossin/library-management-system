@@ -19,5 +19,24 @@
         input {
             font-size: 15px;
         }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            
+            input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            label {
+                margin: 0;
+            }
+        }
     }
 }

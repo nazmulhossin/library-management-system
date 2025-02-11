@@ -157,6 +157,9 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        // Check if the "remember me" checkbox is checked
+        $remember = $request->has('remember');
+
         // Attempt to log in the user
         if(Auth::attempt($credentials)) {
             $user = Auth::user();
@@ -186,6 +189,11 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Session::forget('user'); // Clear user session data
+
+        // Forget the "remember me" session
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         Auth::logout();
         return redirect()->route('login');
     }
