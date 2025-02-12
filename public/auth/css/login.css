@@ -13,18 +13,3 @@
 .form-container form input {
   font-size: 15px;
 }
-.form-container form .remember-me {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.form-container form .remember-me input[type=checkbox] {
-  width: 16px;
-  height: 16px;
-}
-.form-container form .remember-me input[type=checkbox]:focus {
-  outline: none;
-}
-.form-container form .remember-me label {
-  margin: 0;
-}

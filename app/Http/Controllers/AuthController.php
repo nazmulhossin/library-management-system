@@ -157,13 +157,11 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Check if the "remember me" checkbox is checked
-        $remember = $request->has('remember');
 
         // Attempt to log in the user
-        if(Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $user = Auth::user();
-
+        
             if (is_null($user->email_verified_at)) {
                 return $this->sendVerificationEmail($request->email);
             }
@@ -171,15 +169,11 @@ class AuthController extends Controller
             if ($user->status === 'Pending') {
                 return redirect()->route('registration-pending');
             }
-
-            Session::put('user', $user); // Store user information in session
-
+        
+            Session::put('user', $user);
+        
             // Redirect based on user type
-            if ($user->user_type === 'Admin') {
-                return redirect()->route('admin/dashboard');
-            } else {
-                return redirect()->route('all-books');
-            }
+            return $user->user_type === 'Admin' ? redirect()->route('admin/dashboard') : redirect()->route('all-books');
         }
 
         return back()->with('error', 'Invalid email or password');
@@ -189,11 +183,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Session::forget('user'); // Clear user session data
-
-        // Forget the "remember me" session
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
         Auth::logout();
         return redirect()->route('login');
     }

@@ -20,12 +20,6 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter Password" required>
             </div>
-
-            <!-- Remember Me -->
-            <div class="remember-me">
-                <input type="checkbox" name="remember" id="remember">
-                <label for="remember">Remember Me</label>
-            </div>
             
             <!-- Display Error -->
             @if (session('error'))
@@ -33,7 +27,7 @@
             @endif
 
             <!-- Login Button -->
-            <div>
+            <div style="margin-top: 25px;">
                 <button type="submit" class="submit-btn">Login</button>
             </div>
         </form>
