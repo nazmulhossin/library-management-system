@@ -1,0 +1,99 @@
+.form-container {
+    form {
+        padding: 0 40px;
+        color: #2c3345;
+
+        > div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+    
+        input, select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            outline: none;
+            border: 1px solid #d7d8e1;
+            border-radius: 5px;
+        }
+
+        input:focus {
+            outline: 1px solid #a8a8a8;
+        }
+
+        input::placeholder, select:invalid {
+            color: #888;
+        }
+    
+        .group-inputs {
+            display: flex;
+            justify-content: space-between;
+
+            &.first {
+                div:first-child {
+                    width: 50%;
+                }
+    
+                div:last-child {
+                    width: 45%;
+                }
+            }
+
+            &.second {
+                div:first-child {
+                    width: 50%;
+                }
+
+                div:last-child {
+                    width: 45%;
+
+                    div {
+                        display: flex;
+                        align-items: center;
+                        width: 100%;
+                        position: relative;
+
+                        span {
+                            position: absolute;
+                            left: 10px;
+                        }
+
+                        input {
+                            padding-left: 55px;
+                        }
+                    }
+                }
+            }
+            
+            &.third {
+                div:first-child {
+                    width: 47.5%;
+                }
+    
+                div:last-child {
+                    width: 47.5%;
+                }
+            }
+        }
+
+        .error-msg {
+            color: red;
+        }
+    
+        .submit-btn-container {
+            display: flex;
+            justify-content: right;
+            gap: 10px;
+
+            .btn.btn-success {
+                padding: 7px 25px;
+            }
+        }
+    }
+}

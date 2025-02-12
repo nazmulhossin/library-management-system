@@ -84,7 +84,7 @@
     
                 <!-- Book cover Image -->
                 <div>
-                    <label for="cover_image">Upload Cover Image <span>*</span></label>
+                    <label for="cover_image">Upload Cover Image (Max. Size: 2MB)<span>*</span></label>
                     <input type="file" id="cover_image" name="cover_image" accept=".jpg,.png,.jpeg" required>
                 </div>
     

@@ -1,5 +1,5 @@
-.change-password .change-password {
-  margin: 20px 0;
+.change-password form {
+  padding: 0 40px;
 }
 .change-password form > div {
   margin-bottom: 20px;

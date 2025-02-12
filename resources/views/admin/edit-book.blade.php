@@ -1,5 +1,5 @@
 @extends('layouts/admin')
-@section('title') Edit List @endsection
+@section('title') Edit Book @endsection
 @section('main_content')
     <div class="container-fluid px-4">
         <h1 class="mt-4 mb-5">Edit Book</h1>
@@ -85,7 +85,7 @@
     
                 <!-- Book cover Image -->
                 <div>
-                    <label for="cover_image">Change Cover Image</label>
+                    <label for="cover_image">Change Cover Image (Max. Size: 2MB)</label>
                     <p><img src="{{ asset('storage/' . $book->cover_image) }}" alt="Cover" width="100"></p>
                     <input type="file" id="cover_image" name="cover_image" accept=".jpg,.png,.jpeg">
                 </div>

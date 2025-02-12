@@ -89,6 +89,9 @@ Route::prefix('admin')->middleware([AdminMiddleware::class])->group(function () 
     Route::get('/user-decline/{id}', [AdminController::class, 'declineMember'])->name('admin/user-decline');
 
     Route::get('/member-list', [AdminController::class, 'showMembers'])->name('admin/member-list');
+    Route::get('/edit-member/{user_id}', [AdminController::class, 'editMember'])->name('admin/edit-member');
+    Route::put('/update-member/{user_id}', [AdminController::class, 'updateMember'])->name('admin/update-member');
+    Route::get('/delete-member/{user_id}', [AdminController::class, 'deleteMember'])->name('admin/delete-member');
 
     Route::get('/settings', function () { return view('admin/settings'); }) -> name('admin/settings');
     Route::post('/change-password', [AdminController::class, 'changePassword']) -> name('admin/change-password');

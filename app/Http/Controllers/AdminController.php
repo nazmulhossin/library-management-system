@@ -471,12 +471,112 @@ class AdminController extends Controller
     public function showMembers()
     {
         $members = DB::table('users')
-            ->select('user_id', 'name', 'registration_number', 'session', 'email', 'phone_number', 'image')
+            ->select('user_id', 'name', 'title', 'registration_number', 'session', 'email', 'phone_number', 'image')
             ->where('status', 'Approved')
             ->where('user_type', '!=', 'Admin')
             ->get();
 
         return view('admin/members', compact('members'));
+    }
+
+    // Show edit form
+    public function editMember($user_id)
+    {
+        $member = DB::table('users')->where('user_id', $user_id)->first();
+
+        if (!$member) {
+            return redirect()->back()->with('error', 'Member not found.');
+        }
+
+        return view('admin/edit-member', compact('member'));
+    }
+
+    // Update member
+    public function updateMember(Request $request, $user_id)
+    {
+        // Validate input fields
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user_id . ',user_id',
+            'phone_number' => 'required|string|regex:/^(1[3-9]\d{8})$/',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Max size 2MB
+        ]);
+
+        // Get the member details
+        $member = DB::table('users')->where('user_id', $user_id)->first();
+        if (!$member) {
+            return redirect()->back()->with('error', 'Member not found.');
+        }
+
+        // Additional validation for students and teachers
+        if ($member->user_type === 'Student') {
+            $request->validate([
+                'reg_number' => 'required|string|max:20',
+                'session' => 'required|string',
+            ]);
+        } else {
+            $request->validate([
+                'title' => 'required|string|max:30',
+                'reg_number' => 'required|string|max:20',
+            ]);
+        }
+
+        // Prepare updated data
+        $updateData = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone_number' => '0' . $request->input('phone_number'),
+        ];
+
+        // Check if member is a Student or Teacher
+        if ($member->user_type === 'Student') {
+            $updateData['registration_number'] = $request->input('reg_number');
+            $updateData['session'] = $request->input('session');
+        } else {
+            $updateData['title'] = $request->input('title');
+            $updateData['registration_number'] = $request->input('teacher_id');
+        }
+
+        // Handle Profile Image Upload
+        if ($request->hasFile('photo')) {
+            // Delete old image if exists
+            if ($member->image) {
+                Storage::delete('public/' . $member->image);
+            }
+
+            // Store new image
+            $imagePath = $request->file('photo')->store('photos', 'public');
+            $updateData['image'] = $imagePath;
+        }
+
+        // Update the member record
+        $updated = DB::table('users')->where('user_id', $user_id)->update($updateData);
+
+        if ($updated) {
+            return redirect()->route('admin/member-list')->with('success', 'Member updated successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Failed to update member.');
+        }
+    }
+
+    // Delete member (Prevent deletion if they have borrowed books)
+    public function deleteMember($user_id)
+    {
+        // Check if user has borrowed books
+        $borrowedBooks = DB::table('borrowed_books')->where('user_id', $user_id)->whereNull('return_date')->exists();
+
+        if ($borrowedBooks) {
+            return redirect()->back()->with('error', 'Cannot delete member. They have borrowed books.');
+        }
+
+        // Delete member if they have no borrowed books
+        $deleted = DB::table('users')->where('user_id', $user_id)->delete();
+
+        if (!$deleted) {
+            return redirect()->back()->with('error', 'Failed to delete member.');
+        }
+
+        return redirect()->back()->with('success', 'Member deleted successfully.');
     }
 
     public function changePassword(Request $request)
