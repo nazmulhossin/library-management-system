@@ -450,22 +450,39 @@ class AdminController extends Controller
         return view('admin/pending-members', compact('pendingUsers'));
     }
 
-    public function approveMember($id)
+    public function approveMember($user_id)
     {
-        DB::table('users')
-            ->where('user_id', $id)
-            ->update(['status' => 'Approved']);
+        $member = DB::table('users')->where('user_id', $user_id)->first();
+
+        if (!$member) {
+            return redirect()->back()->with('error', 'Member not found.');
+        }
+
+        DB::table('users')->where('user_id', $user_id)->update(['status' => 'Approved']);
     
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Member approved successfully.');
     }
     
-    public function declineMember($id)
+    public function declineMember($user_id)
     {
-        DB::table('users')
-            ->where('user_id', $id)
-            ->delete();
+        $member = DB::table('users')->where('user_id', $user_id)->first();
+
+        if (!$member) {
+            return redirect()->back()->with('error', 'Member not found.');
+        }
+
+        if ($member->image) {
+            $imagePath = storage_path('app/public/' . $member->image);
+
+            // Check if the file exists and delete it
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        DB::table('users')->where('user_id', $user_id)->delete();
     
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Member declined successfully.');
     }
 
     public function showMembers()
@@ -567,6 +584,22 @@ class AdminController extends Controller
 
         if ($borrowedBooks) {
             return redirect()->back()->with('error', 'Cannot delete member. They have borrowed books.');
+        }
+
+        // Get member's image path before deleting the record
+        $member = DB::table('users')->where('user_id', $user_id)->first();
+
+        if (!$member) {
+            return redirect()->back()->with('error', 'Member not found.');
+        }
+
+        if ($member->image) {
+            $imagePath = storage_path('app/public/' . $member->image);
+
+            // Check if the file exists and delete it
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
         }
 
         // Delete member if they have no borrowed books
