@@ -35,26 +35,28 @@ Route::post('/update-password', [AuthController::class, 'resetPassword'])->name(
 
 
 
-// User Routes
-Route::get('/all-books', [UserController::class, 'showAllBooks'])->name('all-books')->middleware([UserMiddleware::class]);
-Route::get('/cse-books', [UserController::class, 'showCSEBooks'])->name('cse-books')->middleware([UserMiddleware::class]);
-Route::get('/eee-books', [UserController::class, 'showEEEBooks'])->name('eee-books')->middleware([UserMiddleware::class]);
-Route::get('/programming-books', [UserController::class, 'showProgrammingBooks'])->name('programming-books')->middleware([UserMiddleware::class]);
-Route::get('/machine-learning-books', [UserController::class, 'showMachineLearningBooks'])->name('machine-learning-books')->middleware([UserMiddleware::class]);
-Route::get('/mathematics-books', [UserController::class, 'showMathematicsBooks'])->name('mathematics-books')->middleware([UserMiddleware::class]);
-Route::get('/search-books', [UserController::class, 'searchBooks'])->name('search-books')->middleware([UserMiddleware::class]);
+// Routes for User 
+Route::middleware([UserMiddleware::class])->group(function () {
+    Route::get('/all-books', [UserController::class, 'showAllBooks'])->name('all-books');
+    Route::get('/cse-books', [UserController::class, 'showCSEBooks'])->name('cse-books');
+    Route::get('/eee-books', [UserController::class, 'showEEEBooks'])->name('eee-books');
+    Route::get('/programming-books', [UserController::class, 'showProgrammingBooks'])->name('programming-books');
+    Route::get('/machine-learning-books', [UserController::class, 'showMachineLearningBooks'])->name('machine-learning-books');
+    Route::get('/mathematics-books', [UserController::class, 'showMathematicsBooks'])->name('mathematics-books');
+    Route::get('/search-books', [UserController::class, 'searchBooks'])->name('search-books');
 
-Route::post('/borrow-request', [UserController::class, 'borrowRequest'])->middleware([UserMiddleware::class]);
-Route::post('/cancel-borrow-request', [UserController::class, 'cancelRequest'])->middleware([UserMiddleware::class]);
-Route::delete('/cancel-borrow-request-with-id/{book_id}', [UserController::class, 'cancelRequestWithID'])->name('cancel-borrow-request-with-id')->middleware([UserMiddleware::class]);
+    Route::post('/borrow-request', [UserController::class, 'borrowRequest']);
+    Route::post('/cancel-borrow-request', [UserController::class, 'cancelRequest']);
+    Route::delete('/cancel-borrow-request-with-id/{book_id}', [UserController::class, 'cancelRequestWithID'])->name('cancel-borrow-request-with-id');
 
-Route::get('/book/{book_id}', [UserController::class, 'showBookDetails'])->name('show-book-details')->middleware([UserMiddleware::class]);
+    Route::get('/book/{book_id}', [UserController::class, 'showBookDetails'])->name('show-book-details');
 
-Route::get('/my-profile', function () { return view('user/my-profile'); })->name('my-profile')->middleware([UserMiddleware::class]);
-Route::post('/change-password', [UserController::class, 'changePassword'])->middleware([UserMiddleware::class]);
-Route::get('/my-requested-book-list', [UserController::class, 'showRequestedBookList'])->name('my-requested-book-list')->middleware([UserMiddleware::class]);
-Route::get('/my-borrowed-book-list', [UserController::class, 'showBorrowedBookList'])->name('my-borrowed-book-list')->middleware([UserMiddleware::class]);
-Route::get('/my-returned-book-list', [UserController::class, 'showReturnedBookList'])->name('my-returned-book-list')->middleware([UserMiddleware::class]);
+    Route::view('/my-profile', 'user/my-profile')->name('my-profile');
+    Route::post('/change-password', [UserController::class, 'changePassword']);
+    Route::get('/my-requested-book-list', [UserController::class, 'showRequestedBookList'])->name('my-requested-book-list');
+    Route::get('/my-borrowed-book-list', [UserController::class, 'showBorrowedBookList'])->name('my-borrowed-book-list');
+    Route::get('/my-returned-book-list', [UserController::class, 'showReturnedBookList'])->name('my-returned-book-list');
+});
 
 
 

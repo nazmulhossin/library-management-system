@@ -238,13 +238,11 @@ class AuthController extends Controller
     {
         $request->validate([
             'token' => 'required',
-            'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8|confirmed',
         ]);
 
         // Check if token is valid
         $resetRequest = DB::table('password_resets')
-            ->where('email', $request->email)
             ->where('token', $request->token)
             ->first();
 
@@ -253,12 +251,12 @@ class AuthController extends Controller
         }
 
         // Update user password
-        DB::table('users')->where('email', $request->email)->update([
+        DB::table('users')->where('email', $resetRequest->email)->update([
             'password' => Hash::make($request->password),
         ]);
 
         // Delete the reset request
-        DB::table('password_resets')->where('email', $request->email)->delete();
+        DB::table('password_resets')->where('token', $request->token)->delete();
 
         return redirect()->route('login');
     }
