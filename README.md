@@ -122,62 +122,80 @@ Here are the main features of this Library Management System:
 ## Installation
 ### Requirements
 Ensure your server meets the following requirements:
-- PHP 8.0+
+- PHP 8.2+
 - MySQL 5.7+
 - Composer
-- Laravel 9+
-- Apache/Nginx
+- Laravel 11
+- Apache
 
 ### Setup Instructions
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-repo/library-management.git
-   cd library-management
+   git clone https://github.com/nazmulhossin/library-management-system.git
+   cd library-management-system
    ```
 
 2. **Install dependencies:**
    ```sh
    composer install
-   npm install
-   npm run dev
    ```
 
-3. **Configure environment variables:**
-   Copy the `.env.example` file to `.env` and update database credentials:
+3. **Configure environment variables:**  
+   Copy the `.env.example` file to `.env` and update database, mail, and session configurations:  
+
+   For Linux/macOS:
    ```sh
    cp .env.example .env
    ```
+   For Windows (Command Prompt):
+   ```sh
+   copy .env.example .env
+   ```
    Edit the `.env` file:
    ```env
-   APP_URL=http://your-subdomain.example.com
+   
+   # Database Configuration
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
    DB_PORT=3306
-   DB_DATABASE=your_database
-   DB_USERNAME=your_username
+   DB_DATABASE=LMS_DB
+   DB_USERNAME=root
    DB_PASSWORD=your_password
+    
+   # Mail Configuration
+   MAIL_MAILER=smtp
+   MAIL_HOST=smtp.gmail.com
+   MAIL_PORT=587
+   MAIL_USERNAME=your_email@example.com
+   MAIL_PASSWORD=your_email_password
+   MAIL_ENCRYPTION=tls
+   MAIL_FROM_ADDRESS="your_email@example.com"
+   MAIL_FROM_NAME="CSE Seminar Library"
+    
+   # Session Configuration
+   SESSION_DRIVER=file
+   SESSION_LIFETIME=43200
+   SESSION_ENCRYPT=false
+   SESSION_PATH=/
+   SESSION_DOMAIN=null
    ```
 
-4. **Generate application key:**
-   ```sh
-   php artisan key:generate
-   ```
-
-5. **Run database migrations and seed data:**
+4. **Run database migrations and seed data:**
    ```sh
    php artisan migrate --seed
    ```
 
-6. **Setup Storage Symlink:**
+5. **Setup Storage Symlink:**
    ```sh
    php artisan storage:link
    ```
 
-7. **Start the Laravel development server:**
+6. **Start the Laravel development server:**
    ```sh
    php artisan serve
    ```
 
 ## Usage
-- **Admin Dashboard**: `your-subdomain.example.com/admin`
-- **User Login**: `your-subdomain.example.com/login`
+- **Admin Dashboard**:
+     - Email: `admin@gmail.com`
+     - Password: `12345678`
