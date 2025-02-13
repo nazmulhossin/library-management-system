@@ -184,6 +184,11 @@ Ensure your server meets the following requirements:
    ```sh
    php artisan migrate --seed
    ```
+   
+   Or, if you want all the data shown above then do the following steps: 
+   - Open phpMyAdmin (URL: `http://localhost/phpmyadmin`)
+   - Create a new database called `lms_db`.
+   - Import the SQL file located in the `/database/lms_db.sql` folder to set up the necessary tables.
 
 5. **Setup Storage Symlink:**
    ```sh
