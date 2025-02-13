@@ -184,6 +184,10 @@ Ensure your server meets the following requirements:
    ```sh
    php artisan migrate --seed
    ```
+   Then,
+   ```sh
+   php artisan db:seed --class=UsersSeeder
+   ```
    
    Or, if you want all the data shown above then do the following steps: 
    - Open phpMyAdmin (URL: `http://localhost/phpmyadmin`)
