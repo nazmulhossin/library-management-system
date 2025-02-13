@@ -4,7 +4,7 @@
         @include('partials/user-sidebar')
     
         <section class="user-section-right">
-            <h1 class="page-heading">Returned Books List</h1>
+            <h1 class="page-heading">Returned Book List</h1>
 
             <div class="table-container"> 
                 @if($returnedBooks->isEmpty())
