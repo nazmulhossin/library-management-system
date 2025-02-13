@@ -161,6 +161,13 @@ Ensure your server meets the following requirements:
    DB_DATABASE=LMS_DB
    DB_USERNAME=root
    DB_PASSWORD=your_password
+
+   # Session Configuration
+   SESSION_DRIVER=file
+   SESSION_LIFETIME=43200
+   SESSION_ENCRYPT=false
+   SESSION_PATH=/
+   SESSION_DOMAIN=null
     
    # Mail Configuration
    MAIL_MAILER=smtp
@@ -171,13 +178,6 @@ Ensure your server meets the following requirements:
    MAIL_ENCRYPTION=tls
    MAIL_FROM_ADDRESS="your_email@example.com"
    MAIL_FROM_NAME="CSE Seminar Library"
-    
-   # Session Configuration
-   SESSION_DRIVER=file
-   SESSION_LIFETIME=43200
-   SESSION_ENCRYPT=false
-   SESSION_PATH=/
-   SESSION_DOMAIN=null
    ```
 
 4. **Run database migrations and seed data:**
