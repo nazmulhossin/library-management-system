@@ -182,7 +182,7 @@ Ensure your server meets the following requirements:
 
 4. **Run database migrations and seed data:**
    ```sh
-   php artisan migrate --seed
+   php artisan migrate
    ```
    Then,
    ```sh
